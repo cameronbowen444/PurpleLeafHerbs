@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://YOUR-VERCEL-LINK.vercel.app"),
+const siteUrl = "https://purple-leaf-herbs.vercel.app";
 
-  title: "Purple Leaf Herbs | Herbal Wellness & Nutrition Coaching",
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+
+  title: {
+    default: "Purple Leaf Herbs | Herbalist Holistic Nutrition Coach",
+    template: "%s | Purple Leaf Herbs",
+  },
 
   description:
-    "Purple Leaf Herbs offers herbal education, nutrition coaching, natural products, and gentle lifestyle support rooted in plant wisdom and holistic wellness.",
+    "Purple Leaf Herbs offers herbal education, nutrition coaching, natural products, and gentle lifestyle support rooted in plant wisdom.",
 
   icons: {
     icon: "/assets/logo.png",
@@ -16,17 +21,17 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Purple Leaf Herbs | Herbal Wellness & Nutrition Coaching",
+    title: "Home | Purple Leaf Herbs Herbalist Holistic Nutrition Coach",
     description:
-      "Herbal education, nutrition coaching, and gentle lifestyle support rooted in nature.",
-    url: "https://YOUR-VERCEL-LINK.vercel.app",
+      "Herbal education, nutrition coaching, natural products, and gentle lifestyle support rooted in plant wisdom.",
+    url: siteUrl,
     siteName: "Purple Leaf Herbs",
     images: [
       {
         url: "/assets/hero-herb.png",
         width: 1200,
         height: 630,
-        alt: "Purple Leaf Herbs herbal wellness and nutrition coaching",
+        alt: "Purple Leaf Herbs herbal wellness and natural products",
       },
     ],
     locale: "en_US",
@@ -35,9 +40,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Purple Leaf Herbs | Herbal Wellness & Nutrition Coaching",
+    title: "Home | Purple Leaf Herbs Herbalist Holistic Nutrition Coach",
     description:
-      "Herbal education, nutrition coaching, and gentle lifestyle support rooted in nature.",
+      "Herbal education, nutrition coaching, natural products, and gentle lifestyle support rooted in plant wisdom.",
     images: ["/assets/hero-herb.png"],
   },
 };
