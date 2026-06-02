@@ -15,9 +15,9 @@ export const metadata: Metadata = {
     "Purple Leaf Herbs offers herbal education, nutrition coaching, natural products, and gentle lifestyle support rooted in plant wisdom.",
 
   icons: {
-    icon: "/assets/logo.png",
-    shortcut: "/assets/logo.png",
-    apple: "/assets/logo.png",
+    icon: "/assets/logo.jpg",
+    shortcut: "/assets/logo.jpg",
+    apple: "/assets/logo.jpg",
   },
 
   openGraph: {
