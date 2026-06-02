@@ -8,17 +8,17 @@ const footerLinks = [
   { label: "Services", href: "#services" },
   { label: "Mission", href: "#mission" },
   { label: "Quotes", href: "#quotes" },
-  { label: "Contact", href: "#contact" },
 ];
 
 const Footer = () => {
   return (
     <footer className="relative overflow-hidden bg-[#2b1731] px-4 py-16 text-white">
-      <div className="absolute left-[-10%] top-[-20%] h-80 w-80 rounded-full bg-[#a98bb8]/35 blur-3xl" />
-      <div className="absolute bottom-[-25%] right-[-10%] h-96 w-96 rounded-full bg-[#d8ead0]/20 blur-3xl" />
+      {/* Desktop-only glow effects */}
+      <div className="absolute left-[-10%] top-[-20%] hidden h-80 w-80 rounded-full bg-[#a98bb8]/25 blur-3xl md:block" />
+      <div className="absolute bottom-[-25%] right-[-10%] hidden h-96 w-96 rounded-full bg-[#d8ead0]/15 blur-3xl md:block" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        <div className="grid gap-10 rounded-[3rem] border border-white/10 bg-white/[0.04] p-8 shadow-[0_30px_100px_rgba(0,0,0,0.2)] backdrop-blur-xl md:p-10 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid gap-10 rounded-[2.5rem] border border-white/10 bg-white/[0.04] p-8 shadow-[0_18px_60px_rgba(0,0,0,0.18)] md:rounded-[3rem] md:p-10 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Brand */}
           <div>
             <Link href="#home" className="inline-flex items-center gap-4">
@@ -91,13 +91,13 @@ const Footer = () => {
                   and start the conversation gently.
                 </p>
 
-                <Link
-                  href="#contact"
+                <a
+                  href="mailto:brooke@purpleleafherbs.com"
                   className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white transition-all duration-300 hover:gap-3"
                 >
-                  Contact Brooke
+                  Email Brooke
                   <FiArrowUpRight />
-                </Link>
+                </a>
               </div>
             </div>
           </div>
