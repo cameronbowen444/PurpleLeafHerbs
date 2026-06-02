@@ -158,10 +158,6 @@ const ContactModal = () => {
                     Submit Message
                     <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </button>
-
-                  <p className="mt-5 text-center text-xs leading-6 text-[#8b6a99]">
-                    This form is visual for now. We can connect it to email next.
-                  </p>
                 </form>
               </div>
             </motion.div>
