@@ -10,31 +10,31 @@ const offerings = [
     number: "01",
     title: "Natural Balance",
     text: "Gentle support for creating a more balanced, grounded way of living.",
-    image: "/assets/service-balance.png",
+    image: "/assets/service-balance.jpg",
   },
   {
     number: "02",
     title: "Nutrition Coaching",
     text: "Simple food guidance built around your body, lifestyle, and rhythm.",
-    image: "/assets/service-nutrition.png",
+    image: "/assets/service-nutrition.jpg",
   },
   {
     number: "03",
     title: "Herbal Education",
     text: "Learn how plants, herbs, and natural remedies can support everyday wellness.",
-    image: "/assets/service-herbs.png",
+    image: "/assets/service-herbs.jpg",
   },
   {
     number: "04",
     title: "Organic & Natural Products",
     text: "Earth-rooted herbal offerings made with care, intention, and plant wisdom.",
-    image: "/assets/service-products.png",
+    image: "/assets/service-products.jpg",
   },
   {
     number: "05",
     title: "Lifestyle & Stress Support",
     text: "Soft, realistic practices for rest, calm, and a healthier daily flow.",
-    image: "/assets/service-lifestyle.png",
+    image: "/assets/service-lifestyle.jpg",
   },
 ];
 

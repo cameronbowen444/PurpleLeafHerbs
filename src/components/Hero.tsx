@@ -106,7 +106,7 @@ const Hero = () => {
 
           <div className="relative h-[440px] overflow-hidden rounded-t-full rounded-b-[2rem] shadow-[0_30px_90px_rgba(76,51,88,0.18)] sm:h-[560px]">
             <Image
-              src="/assets/hero-herb.png"
+              src="/assets/hero-herb.jpg"
               alt="Herbs and natural wellness ingredients"
               fill
               priority

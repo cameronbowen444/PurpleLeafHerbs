@@ -62,7 +62,7 @@ const About = () => {
             <div className="flex items-center gap-5">
               <div className="relative h-24 w-24 overflow-hidden rounded-full bg-[#fffaf5] shadow-[0_18px_50px_rgba(76,51,88,0.13)]">
                 <Image
-                  src="/assets/founder.png"
+                  src="/assets/founder.jpg"
                   alt="Dina Brooke, founder of Purple Leaf Herbs"
                   fill
                   sizes="96px"

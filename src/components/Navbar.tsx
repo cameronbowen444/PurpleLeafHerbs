@@ -50,7 +50,7 @@ const Navbar = () => {
           <Link href="#home" className="group flex items-center gap-3">
             <div className="relative h-12 w-12 overflow-hidden rounded-full border border-purple-200/70 bg-white shadow-lg shadow-purple-900/10">
               <Image
-                src="/assets/logo.png"
+                src="/assets/logo.jpg"
                 alt="Purple Leaf Herbs logo"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -134,7 +134,7 @@ const Navbar = () => {
                 <div className="flex items-center gap-3">
                   <div className="relative h-12 w-12 overflow-hidden rounded-full bg-white shadow-md">
                     <Image
-                      src="/assets/logo.png"
+                      src="/assets/logo.jpg"
                       alt="Purple Leaf Herbs logo"
                       fill
                       className="object-cover"

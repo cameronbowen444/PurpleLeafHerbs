@@ -24,7 +24,7 @@ const Footer = () => {
             <Link href="#home" className="inline-flex items-center gap-4">
               <div className="relative h-14 w-14 overflow-hidden rounded-full border border-white/20 bg-white shadow-lg">
                 <Image
-                  src="/assets/logo.png"
+                  src="/assets/logo.jpg"
                   alt="Purple Leaf Herbs logo"
                   fill
                   sizes="56px"
