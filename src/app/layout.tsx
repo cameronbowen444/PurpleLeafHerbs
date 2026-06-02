@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "Purple Leaf Herbs",
     images: [
       {
-        url: "/assets/hero-herb.png",
+        url: "/assets/hero-herb.jpg",
         width: 1200,
         height: 630,
         alt: "Purple Leaf Herbs herbal wellness and natural products",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Home | Purple Leaf Herbs Herbalist Holistic Nutrition Coach",
     description:
       "Herbal education, nutrition coaching, natural products, and gentle lifestyle support rooted in plant wisdom.",
-    images: ["/assets/hero-herb.png"],
+    images: ["/assets/hero-herb.jpg"],
   },
 };
 
