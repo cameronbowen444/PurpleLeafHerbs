@@ -3,3 +3,31 @@
 html {
   scroll-behavior: smooth;
 }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-hide-effect {
+    display: none !important;
+  }
+
+  .mobile-no-blur {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .mobile-light-shadow {
+    box-shadow: 0 12px 35px rgba(76, 51, 88, 0.08) !important;
+  }
+}
+

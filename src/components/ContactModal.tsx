@@ -1,63 +1,66 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiArrowUpRight, FiMail, FiX } from "react-icons/fi";
 
 const ContactModal = () => {
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
     <>
       {/* Static Contact Button */}
       <motion.button
         onClick={() => setOpen(true)}
-        initial={{ y: 70, opacity: 0 }}
+        initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.45, ease: "easeOut" }}
-        className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#3b243f] px-6 py-4 text-sm font-semibold text-white shadow-[0_20px_60px_rgba(59,36,63,0.35)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#a98bb8]"
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#3b243f] px-6 py-4 text-sm font-semibold text-white shadow-[0_14px_40px_rgba(59,36,63,0.25)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#a98bb8]"
       >
         Contact
         <FiArrowUpRight />
       </motion.button>
 
-      {/* Modal */}
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-[999] overflow-y-auto bg-[#2b1731]/35 px-4 py-6 backdrop-blur-xl md:py-10"
+            className="fixed inset-0 z-[999] bg-[#2b1731]/55 px-4 py-5 md:py-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* Close by clicking background */}
+            {/* Close background */}
             <button
               onClick={() => setOpen(false)}
               className="absolute inset-0 h-full w-full cursor-default"
               aria-label="Close contact modal background"
             />
 
-            <motion.div
-              initial={{ y: 40, opacity: 0, scale: 0.96 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 30, opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-              className="relative z-10 mx-auto min-h-[calc(100vh-3rem)] max-w-6xl overflow-hidden rounded-[2.5rem] bg-[#fffaf5] shadow-[0_35px_120px_rgba(43,23,49,0.35)] md:min-h-[calc(100vh-5rem)]"
+            {/* Fixed close button */}
+            <button
+              onClick={() => setOpen(false)}
+              className="fixed right-5 top-5 z-[1001] flex h-12 w-12 items-center justify-center rounded-full bg-white text-[#3b243f] shadow-[0_12px_35px_rgba(43,23,49,0.22)] transition-all duration-300 hover:rotate-90 hover:bg-[#3b243f] hover:text-white md:right-8 md:top-8"
+              aria-label="Close contact form"
             >
-              {/* Decorative glows */}
-              <div className="absolute left-[-15%] top-[-20%] h-[420px] w-[420px] rounded-full bg-[#d9c1e5]/45 blur-[130px]" />
-              <div className="absolute bottom-[-20%] right-[-15%] h-[480px] w-[480px] rounded-full bg-[#d8ead0]/65 blur-[150px]" />
+              <FiX size={22} />
+            </button>
 
-              {/* Close button */}
-              <button
-                onClick={() => setOpen(false)}
-                className="absolute right-5 top-5 z-20 flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-[#3b243f] shadow-lg backdrop-blur-xl transition-all duration-300 hover:rotate-90 hover:bg-[#3b243f] hover:text-white"
-                aria-label="Close contact form"
-              >
-                <FiX size={22} />
-              </button>
-
-              <div className="relative z-10 grid min-h-[inherit] lg:grid-cols-[0.9fr_1.1fr]">
+            <motion.div
+              initial={{ y: 28, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 20, opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="relative z-10 mx-auto flex max-h-[calc(100vh-2.5rem)] max-w-6xl overflow-hidden rounded-[2rem] bg-[#fffaf5] shadow-[0_24px_80px_rgba(43,23,49,0.28)] md:max-h-[calc(100vh-4rem)] md:rounded-[2.5rem]"
+            >
+              <div className="grid w-full overflow-y-auto lg:grid-cols-[0.9fr_1.1fr]">
                 {/* Left side */}
                 <div className="flex flex-col justify-between bg-[#3b243f] p-8 text-white md:p-12">
                   <div>
@@ -113,7 +116,7 @@ const ContactModal = () => {
                       <input
                         type="text"
                         placeholder="Your name"
-                        className="w-full rounded-2xl border border-[#d8c6df]/80 bg-white/70 px-5 py-4 text-[#3b243f] outline-none transition-all duration-300 placeholder:text-[#9b8aa1] focus:border-[#a98bb8] focus:bg-white focus:shadow-[0_12px_40px_rgba(76,51,88,0.08)]"
+                        className="w-full rounded-2xl border border-[#d8c6df]/80 bg-white px-5 py-4 text-[#3b243f] outline-none transition-all duration-300 placeholder:text-[#9b8aa1] focus:border-[#a98bb8]"
                       />
                     </div>
 
@@ -124,7 +127,7 @@ const ContactModal = () => {
                       <input
                         type="email"
                         placeholder="you@example.com"
-                        className="w-full rounded-2xl border border-[#d8c6df]/80 bg-white/70 px-5 py-4 text-[#3b243f] outline-none transition-all duration-300 placeholder:text-[#9b8aa1] focus:border-[#a98bb8] focus:bg-white focus:shadow-[0_12px_40px_rgba(76,51,88,0.08)]"
+                        className="w-full rounded-2xl border border-[#d8c6df]/80 bg-white px-5 py-4 text-[#3b243f] outline-none transition-all duration-300 placeholder:text-[#9b8aa1] focus:border-[#a98bb8]"
                       />
                     </div>
 
@@ -135,7 +138,7 @@ const ContactModal = () => {
                       <input
                         type="tel"
                         placeholder="Optional"
-                        className="w-full rounded-2xl border border-[#d8c6df]/80 bg-white/70 px-5 py-4 text-[#3b243f] outline-none transition-all duration-300 placeholder:text-[#9b8aa1] focus:border-[#a98bb8] focus:bg-white focus:shadow-[0_12px_40px_rgba(76,51,88,0.08)]"
+                        className="w-full rounded-2xl border border-[#d8c6df]/80 bg-white px-5 py-4 text-[#3b243f] outline-none transition-all duration-300 placeholder:text-[#9b8aa1] focus:border-[#a98bb8]"
                       />
                     </div>
 
@@ -146,14 +149,14 @@ const ContactModal = () => {
                       <textarea
                         rows={5}
                         placeholder="Tell Brooke what you are interested in..."
-                        className="w-full resize-none rounded-2xl border border-[#d8c6df]/80 bg-white/70 px-5 py-4 text-[#3b243f] outline-none transition-all duration-300 placeholder:text-[#9b8aa1] focus:border-[#a98bb8] focus:bg-white focus:shadow-[0_12px_40px_rgba(76,51,88,0.08)]"
+                        className="w-full resize-none rounded-2xl border border-[#d8c6df]/80 bg-white px-5 py-4 text-[#3b243f] outline-none transition-all duration-300 placeholder:text-[#9b8aa1] focus:border-[#a98bb8]"
                       />
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="group mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#3b243f] px-7 py-4 text-sm font-semibold text-white shadow-[0_20px_55px_rgba(59,36,63,0.22)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#a98bb8]"
+                    className="group mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#3b243f] px-7 py-4 text-sm font-semibold text-white shadow-[0_14px_38px_rgba(59,36,63,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#a98bb8]"
                   >
                     Submit Message
                     <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

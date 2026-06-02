@@ -42,20 +42,20 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="relative overflow-hidden bg-[#fffaf5] px-4 py-28 text-[#302133]"
+      className="relative overflow-hidden bg-[#fffaf5] px-4 py-24 text-[#302133] md:py-28"
     >
-      {/* Background atmosphere */}
-      <div className="absolute left-[-18%] top-[-10%] h-[560px] w-[560px] rounded-full bg-[#d9c1e5]/35 blur-[160px]" />
-      <div className="absolute right-[-18%] bottom-[-20%] h-[620px] w-[620px] rounded-full bg-[#d8ead0]/60 blur-[170px]" />
+      {/* Lighter atmosphere: desktop only */}
+      <div className="absolute left-[-18%] top-[-10%] hidden h-[440px] w-[440px] rounded-full bg-[#d9c1e5]/25 blur-3xl md:block lg:h-[560px] lg:w-[560px]" />
+      <div className="absolute right-[-18%] bottom-[-20%] hidden h-[500px] w-[500px] rounded-full bg-[#d8ead0]/40 blur-3xl md:block lg:h-[620px] lg:w-[620px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-20 grid gap-8 border-b border-[#d8c6df]/70 pb-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+        <div className="mb-16 grid gap-8 border-b border-[#d8c6df]/70 pb-10 md:mb-20 md:pb-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <motion.div
-            initial={{ y: 22, opacity: 0 }}
+            initial={{ y: 18, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
           >
             <p className="mb-5 text-xs font-medium uppercase tracking-[0.38em] text-[#8b6a99]">
               What We Offer
@@ -67,10 +67,10 @@ const Services = () => {
           </motion.div>
 
           <motion.p
-            initial={{ y: 22, opacity: 0 }}
+            initial={{ y: 18, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ delay: 0.08, duration: 0.75, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ delay: 0.05, duration: 0.55, ease: "easeOut" }}
             className="max-w-xl text-lg leading-8 text-[#6f5b75] lg:ml-auto"
           >
             Support through food, herbs, education, and daily rituals that feel
@@ -79,44 +79,44 @@ const Services = () => {
         </div>
 
         {/* Offerings */}
-        <div className="space-y-10">
+        <div className="space-y-8 md:space-y-10">
           {offerings.map((item, index) => {
             const reverse = index % 2 !== 0;
 
             return (
               <motion.article
                 key={item.title}
-                initial={{ y: 34, opacity: 0 }}
+                initial={{ y: 24, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true, amount: 0.25 }}
+                viewport={{ once: true, amount: 0.18 }}
                 transition={{
-                  delay: index * 0.05,
-                  duration: 0.75,
+                  delay: index * 0.035,
+                  duration: 0.55,
                   ease: "easeOut",
                 }}
-                className={`group grid overflow-hidden rounded-[2.5rem] bg-[#f8f0e8] shadow-[0_24px_70px_rgba(76,51,88,0.08)] lg:grid-cols-2 ${
+                className={`group grid overflow-hidden rounded-[2rem] bg-[#f8f0e8] shadow-[0_14px_45px_rgba(76,51,88,0.07)] md:rounded-[2.5rem] lg:grid-cols-2 ${
                   reverse ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
               >
                 {/* Image */}
-                <div className="relative h-[320px] overflow-hidden lg:h-[460px]">
+                <div className="relative h-[300px] overflow-hidden sm:h-[340px] lg:h-[440px]">
                   <Image
                     src={item.image}
                     alt={item.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2b1731]/30 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2b1731]/25 via-transparent to-transparent" />
 
-                  <span className="absolute left-6 top-6 rounded-full bg-[#fffaf5]/90 px-5 py-2 font-serif text-2xl text-[#a98bb8] shadow-lg backdrop-blur-xl">
+                  <span className="absolute left-5 top-5 rounded-full bg-[#fffaf5]/95 px-5 py-2 font-serif text-2xl text-[#a98bb8] shadow-[0_10px_25px_rgba(76,51,88,0.1)] md:left-6 md:top-6">
                     {item.number}
                   </span>
                 </div>
 
                 {/* Text */}
-                <div className="relative flex min-h-[320px] flex-col justify-center p-8 md:p-12 lg:p-16">
+                <div className="relative flex min-h-[300px] flex-col justify-center p-7 md:p-12 lg:min-h-[440px] lg:p-14">
                   <div className="absolute right-8 top-8 hidden font-serif text-7xl text-[#d8c6df]/35 lg:block">
                     ✦
                   </div>
@@ -148,11 +148,11 @@ const Services = () => {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ y: 26, opacity: 0 }}
+          initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ delay: 0.1, duration: 0.75, ease: "easeOut" }}
-          className="mt-16 flex flex-col items-center justify-between gap-6 rounded-full border border-[#d8c6df]/70 bg-white/55 px-6 py-5 text-center shadow-sm backdrop-blur-xl md:flex-row md:text-left"
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ delay: 0.05, duration: 0.55, ease: "easeOut" }}
+          className="mt-14 flex flex-col items-center justify-between gap-6 rounded-[2rem] border border-[#d8c6df]/70 bg-white/75 px-6 py-6 text-center shadow-[0_12px_35px_rgba(76,51,88,0.06)] md:mt-16 md:flex-row md:rounded-full md:py-5 md:text-left"
         >
           <p className="font-serif text-2xl text-[#3b243f]">
             Not sure which service fits best?

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { FiMenu, FiX, FiMail, FiArrowUpRight } from "react-icons/fi";
 
 const navLinks = [
@@ -19,40 +19,47 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 30);
+          ticking = false;
+        });
+
+        ticking = true;
+      }
     };
 
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className={`fixed left-0 top-0 z-50 w-full transition-all duration-500 ${
+      <header
+        className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${
           scrolled ? "px-4 py-3" : "px-4 py-5"
         }`}
       >
         <nav
-          className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border transition-all duration-500 ${
+          className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border transition-all duration-300 ${
             scrolled
-              ? "border-purple-200/50 bg-white/75 px-4 py-3 shadow-[0_20px_70px_rgba(95,65,120,0.16)] backdrop-blur-2xl"
+              ? "border-purple-200/60 bg-white/95 px-4 py-3 shadow-[0_14px_40px_rgba(95,65,120,0.12)] md:bg-white/75 md:backdrop-blur-xl"
               : "border-transparent bg-transparent px-2 py-2"
           }`}
         >
           {/* Logo */}
           <Link href="#home" className="group flex items-center gap-3">
-            <div className="relative h-12 w-12 overflow-hidden rounded-full border border-purple-200/70 bg-white shadow-lg shadow-purple-900/10">
+            <div className="relative h-12 w-12 overflow-hidden rounded-full border border-purple-200/70 bg-white shadow-md">
               <Image
                 src="/assets/logo.jpg"
                 alt="Purple Leaf Herbs logo"
                 fill
+                sizes="48px"
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 priority
               />
@@ -69,7 +76,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden items-center gap-1 rounded-full border border-purple-100/80 bg-white/55 p-1 shadow-inner shadow-purple-100/70 backdrop-blur-xl lg:flex">
+          <div className="hidden items-center gap-1 rounded-full border border-purple-100/80 bg-white/70 p-1 shadow-inner shadow-purple-100/50 md:backdrop-blur-sm lg:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -85,7 +92,7 @@ const Navbar = () => {
           <div className="hidden items-center gap-3 lg:flex">
             <a
               href="mailto:brooke@purpleleafherbs.com"
-              className="flex items-center gap-2 rounded-full border border-purple-100 bg-white/60 px-4 py-2 text-sm text-[#4b3d4f] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:shadow-lg"
+              className="flex items-center gap-2 rounded-full border border-purple-100 bg-white/80 px-4 py-2 text-sm text-[#4b3d4f] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white"
             >
               <FiMail />
               Email
@@ -93,7 +100,7 @@ const Navbar = () => {
 
             <Link
               href="#contact"
-              className="group flex items-center gap-2 rounded-full bg-[#a98bb8] px-5 py-3 text-sm font-medium text-white shadow-[0_18px_40px_rgba(130,91,151,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
+              className="group flex items-center gap-2 rounded-full bg-[#a98bb8] px-5 py-3 text-sm font-medium text-white shadow-[0_14px_35px_rgba(130,91,151,0.24)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
             >
               Ask Questions
               <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -103,40 +110,44 @@ const Navbar = () => {
           {/* Mobile Button */}
           <button
             onClick={() => setOpen(true)}
-            className="flex h-12 w-12 items-center justify-center rounded-full border border-purple-100 bg-white/70 text-[#3b243f] shadow-md backdrop-blur-xl lg:hidden"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-purple-100 bg-white/95 text-[#3b243f] shadow-md lg:hidden"
             aria-label="Open menu"
           >
             <FiMenu size={22} />
           </button>
         </nav>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
-            className="fixed inset-0 z-[999] bg-[#231527]/40 p-4 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-[999] bg-[#231527]/50 p-4 lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            <motion.div
-              initial={{ y: -30, opacity: 0, scale: 0.96 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: -20, opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className="relative overflow-hidden rounded-[2rem] border border-white/50 bg-[#fffaf5] p-6 shadow-2xl"
-            >
-              <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-purple-200/50 blur-3xl" />
-              <div className="absolute -bottom-24 -left-20 h-56 w-56 rounded-full bg-emerald-100/70 blur-3xl" />
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute inset-0 h-full w-full cursor-default"
+              aria-label="Close menu background"
+            />
 
-              <div className="relative z-10 flex items-center justify-between">
+            <motion.div
+              initial={{ y: -24, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: -18, opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.28, ease: "easeOut" }}
+              className="relative z-10 overflow-hidden rounded-[2rem] border border-white/60 bg-[#fffaf5] p-6 shadow-2xl"
+            >
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="relative h-12 w-12 overflow-hidden rounded-full bg-white shadow-md">
                     <Image
                       src="/assets/logo.jpg"
                       alt="Purple Leaf Herbs logo"
                       fill
+                      sizes="48px"
                       className="object-cover"
                     />
                   </div>
@@ -160,31 +171,25 @@ const Navbar = () => {
                 </button>
               </div>
 
-              <div className="relative z-10 mt-8 flex flex-col gap-3">
-                {navLinks.map((link, index) => (
-                  <motion.div
+              <div className="mt-8 flex flex-col gap-3">
+                {navLinks.map((link) => (
+                  <Link
                     key={link.label}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.05 }}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center justify-between rounded-2xl border border-purple-100 bg-white/75 px-5 py-4 text-lg text-[#3b243f] shadow-sm transition-all hover:bg-purple-50"
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-2xl border border-purple-100 bg-white/70 px-5 py-4 text-lg text-[#3b243f] shadow-sm transition-all hover:bg-purple-50"
-                    >
-                      {link.label}
-                      <FiArrowUpRight className="text-[#a98bb8]" />
-                    </Link>
-                  </motion.div>
+                    {link.label}
+                    <FiArrowUpRight className="text-[#a98bb8]" />
+                  </Link>
                 ))}
               </div>
 
-              <div className="relative z-10 mt-6">
+              <div className="mt-6">
                 <Link
                   href="#contact"
                   onClick={() => setOpen(false)}
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#a98bb8] px-6 py-4 font-medium text-white shadow-xl shadow-purple-900/20"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#a98bb8] px-6 py-4 font-medium text-white shadow-md"
                 >
                   Ask Questions Here
                   <FiArrowUpRight />

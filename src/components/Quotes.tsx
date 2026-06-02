@@ -1,24 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
-const topQuotes = [
-  {
-    quote: "Let food be thy medicine and medicine be thy food.",
-    author: "Hippocrates",
-  },
-  {
-    quote: "Every creature is a glittering mirror of Divinity.",
-    author: "Hildegard of Bingen",
-  },
-  {
-    quote:
-      "All living creatures are sparks from the radiation of God’s brilliance.",
-    author: "Hildegard of Bingen",
-  },
-];
+const topQuote = {
+  quote: "Let food be thy medicine and medicine be thy food.",
+  author: "Hippocrates",
+};
 
 const testimonials = [
   {
@@ -36,23 +25,7 @@ const testimonials = [
 ];
 
 const Quotes = () => {
-  const [quoteIndex, setQuoteIndex] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
-
-  useEffect(() => {
-    const quoteTimer = setInterval(() => {
-      setQuoteIndex((prev) => (prev + 1) % topQuotes.length);
-    }, 4500);
-
-    const testimonialTimer = setInterval(() => {
-      setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-
-    return () => {
-      clearInterval(quoteTimer);
-      clearInterval(testimonialTimer);
-    };
-  }, []);
 
   const nextTestimonial = () => {
     setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
@@ -67,53 +40,41 @@ const Quotes = () => {
   return (
     <section
       id="quotes"
-      className="relative overflow-hidden bg-[#f8f0e8] px-4 py-24 text-[#302133]"
+      className="relative overflow-hidden bg-[#f8f0e8] px-4 py-20 text-[#302133] md:py-24"
     >
-      <div className="absolute left-[-18%] top-[-20%] h-[520px] w-[520px] rounded-full bg-[#d9c1e5]/30 blur-[150px]" />
-      <div className="absolute bottom-[-25%] right-[-18%] h-[560px] w-[560px] rounded-full bg-[#d8ead0]/55 blur-[160px]" />
+      {/* Desktop-only atmosphere */}
+      <div className="absolute left-[-18%] top-[-20%] hidden h-[420px] w-[420px] rounded-full bg-[#d9c1e5]/25 blur-3xl md:block lg:h-[520px] lg:w-[520px]" />
+      <div className="absolute bottom-[-25%] right-[-18%] hidden h-[460px] w-[460px] rounded-full bg-[#d8ead0]/40 blur-3xl md:block lg:h-[560px] lg:w-[560px]" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Thin Inspiration Strip */}
         <motion.div
-          initial={{ y: -22, opacity: 0 }}
+          initial={{ y: -18, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="mx-auto max-w-6xl border-y border-[#d8c6df]/70 py-10 text-center"
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="mx-auto max-w-6xl border-y border-[#d8c6df]/70 py-8 text-center md:py-10"
         >
           <p className="mb-5 text-xs font-medium uppercase tracking-[0.38em] text-[#8b6a99]">
             Inspiration
           </p>
 
-          <div className="relative min-h-[86px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={quoteIndex}
-                initial={{ y: -14, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 14, opacity: 0 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                className="absolute inset-0 flex flex-col items-center justify-center"
-              >
-                <p className="mx-auto max-w-4xl font-serif text-2xl leading-tight text-[#3b243f] md:text-4xl">
-                  “{topQuotes[quoteIndex].quote}”
-                </p>
+          <p className="mx-auto max-w-4xl font-serif text-2xl leading-tight text-[#3b243f] md:text-4xl">
+            “{topQuote.quote}”
+          </p>
 
-                <p className="mt-4 text-xs uppercase tracking-[0.25em] text-[#8b6a99]">
-                  {topQuotes[quoteIndex].author}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+          <p className="mt-4 text-xs uppercase tracking-[0.25em] text-[#8b6a99]">
+            {topQuote.author}
+          </p>
         </motion.div>
 
         {/* Testimonials */}
-        <div className="mx-auto mt-20 max-w-6xl">
+        <div className="mx-auto mt-16 max-w-6xl md:mt-20">
           <motion.div
-            initial={{ y: 22, opacity: 0 }}
+            initial={{ y: 18, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.55, ease: "easeOut" }}
             className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
           >
             <div>
@@ -132,15 +93,15 @@ const Quotes = () => {
           </motion.div>
 
           <motion.div
-            initial={{ y: 26, opacity: 0 }}
+            initial={{ y: 22, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ delay: 0.08, duration: 0.75, ease: "easeOut" }}
-            className="relative overflow-hidden rounded-[3rem] border border-[#d8c6df]/70 bg-[#fffaf5]/70 p-6 shadow-[0_24px_80px_rgba(76,51,88,0.08)] backdrop-blur-xl md:p-8"
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ delay: 0.05, duration: 0.55, ease: "easeOut" }}
+            className="relative overflow-hidden rounded-[2.5rem] border border-[#d8c6df]/70 bg-[#fffaf5]/85 p-5 shadow-[0_14px_45px_rgba(76,51,88,0.07)] md:rounded-[3rem] md:p-8"
           >
             <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
               {/* Left mini list */}
-              <div className="hidden rounded-[2.3rem] bg-[#3b243f] p-8 text-white lg:block">
+              <div className="hidden rounded-[2rem] bg-[#3b243f] p-8 text-white lg:block">
                 <p className="text-xs uppercase tracking-[0.3em] text-white/45">
                   Testimonials
                 </p>
@@ -166,14 +127,14 @@ const Quotes = () => {
               </div>
 
               {/* Sliding testimonial */}
-              <div className="relative min-h-[300px] rounded-[2.3rem] bg-white/55 p-8 md:p-10">
+              <div className="relative min-h-[280px] rounded-[2rem] bg-white/65 p-8 md:min-h-[300px] md:p-10">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={testimonialIndex}
-                    initial={{ x: 28, opacity: 0 }}
+                    initial={{ x: 22, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -28, opacity: 0 }}
-                    transition={{ duration: 0.45, ease: "easeOut" }}
+                    exit={{ x: -22, opacity: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
                     className="absolute inset-0 flex flex-col justify-center p-8 md:p-10"
                   >
                     <p className="font-serif text-3xl leading-tight text-[#3b243f] md:text-5xl">
