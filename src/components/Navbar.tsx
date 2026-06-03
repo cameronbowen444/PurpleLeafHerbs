@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiMenu, FiX, FiMail, FiArrowUpRight } from "react-icons/fi";
+import ContactModal from "./ContactModal";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -21,114 +22,15 @@ type NavbarProps = {
 
 const Navbar = ({ simple = false }: NavbarProps) => {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const scrolledRef = useRef(false);
-
-  useEffect(() => {
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (ticking) return;
-
-      ticking = true;
-
-      window.requestAnimationFrame(() => {
-        const shouldBeScrolled = window.scrollY > 1;
-
-        if (scrolledRef.current !== shouldBeScrolled) {
-          scrolledRef.current = shouldBeScrolled;
-          setScrolled(shouldBeScrolled);
-        }
-
-        ticking = false;
-      });
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <>
-      {/* Fixed header */}
-      <header className="fixed left-0 top-0 z-50 w-full bg-[#fffaf5]/95 shadow-[0_8px_30px_rgba(59,36,63,0.08)]">
-        {/* Opening brand banner */}
-        <motion.div
-          animate={{
-            height: scrolled ? 0 : "auto",
-            opacity: scrolled ? 0 : 1,
-            y: scrolled ? -24 : 0,
-          }}
-          transition={{ duration: 0.28, ease: "easeOut" }}
-          className="hidden overflow-hidden border-b-4 border-[#8f6ca1] md:block"
-        >
-          <div className="relative mx-auto flex max-w-7xl items-center justify-center px-6 py-8 lg:py-10">
-            {/* Purple + green botanical atmosphere */}
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              <div className="absolute left-[-4rem] top-4 text-[9rem] leading-none text-[#a98bb8]/10">
-                ✿
-              </div>
-              <div className="absolute left-40 bottom-2 text-[6rem] leading-none text-[#7d9b70]/10">
-                ❧
-              </div>
-              <div className="absolute right-[-3rem] top-2 text-[8rem] leading-none text-[#a98bb8]/10">
-                ❧
-              </div>
-              <div className="absolute right-44 bottom-0 text-[6rem] leading-none text-[#7d9b70]/10">
-                ✿
-              </div>
-            </div>
-
-            <Link
-              href="/"
-              className="relative z-10 flex items-center gap-5"
-              aria-label="Purple Leaf Herbs home"
-            >
-              <div className="relative h-20 w-20 overflow-hidden rounded-[1.4rem] border border-[#d8c6df] bg-[#3b243f] p-2 shadow-[0_14px_35px_rgba(59,36,63,0.16)]">
-                <Image
-                  src="/assets/logo-4.png"
-                  alt="Purple Leaf Herbs logo"
-                  fill
-                  sizes="80px"
-                  className="object-cover"
-                  priority
-                />
-              </div>
-
-              <div>
-                <p className="font-serif text-4xl leading-none tracking-[0.05em] text-[#3b243f] lg:text-5xl">
-                  Purple Leaf Herbs
-                </p>
-
-                <div className="relative mt-3 inline-block">
-                  <span className="absolute -left-4 top-1/2 h-3 w-[110%] -translate-y-1/2 rounded-full bg-[#d8ead0]/90" />
-
-                  <span className="relative z-10 text-sm font-semibold uppercase tracking-[0.35em] text-[#8f6ca1]">
-                    Sacred Plant Secrets
-                  </span>
-                </div>
-              </div>
-            </Link>
-          </div>
-
-          <div className="h-1 w-full bg-[#7d9b70]" />
-        </motion.div>
-
-        {/* Main nav bar */}
-        <nav
-          className={`mx-auto flex max-w-7xl items-center justify-between px-4 transition-all duration-300 md:px-6 ${
-            scrolled ? "py-3" : "py-4"
-          }`}
-        >
-          {/* Compact logo */}
+      {/* Fixed navbar only */}
+      <header className="fixed left-0 top-0 z-50 w-full border-b border-[#d8c6df]/70 bg-[#fffaf5]/95 shadow-[0_8px_30px_rgba(59,36,63,0.08)] ">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6 ">
+          {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
-            <div
-              className={`relative overflow-hidden rounded-full border border-[#d8c6df] bg-white shadow-sm transition-all duration-300 ${
-                scrolled ? "h-11 w-11" : "h-12 w-12 md:h-10 md:w-10"
-              }`}
-            >
+            <div className="relative h-12 w-12 overflow-hidden rounded-full border border-[#d8c6df] bg-white shadow-sm md:h-11 md:w-11">
               <Image
                 src="/assets/logo-4.png"
                 alt="Purple Leaf Herbs logo"
@@ -156,7 +58,7 @@ const Navbar = ({ simple = false }: NavbarProps) => {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="relative text-sm font-semibold uppercase tracking-[0.18em] text-[#4b3d4f] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-[#7d9b70] after:transition-all after:duration-300 hover:text-[#3b243f] hover:after:w-full"
+                  className="relative text-xs font-semibold uppercase tracking-[0.18em] text-[#4b3d4f] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-[#7d9b70] after:transition-all after:duration-300 hover:text-[#3b243f] hover:after:w-full"
                 >
                   {link.label}
                 </Link>
@@ -178,19 +80,16 @@ const Navbar = ({ simple = false }: NavbarProps) => {
               <>
                 <a
                   href="mailto:brooke@purpleleafherbs.com"
-                  className="flex items-center gap-2 rounded-full border border-[#d8c6df] bg-white px-4 py-2 text-sm font-medium text-[#4b3d4f] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#a98bb8]"
+                  className="flex items-center gap-2 rounded-full border border-[#d8c6df] bg-white px-4 py-2 text-xs font-medium text-[#4b3d4f] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#a98bb8]"
                 >
                   <FiMail />
                   Email
                 </a>
 
-                <Link
-                  href="#contact"
-                  className="group flex items-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#3b243f] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_30px_rgba(59,36,63,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
-                >
-                  Contact
-                  <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
+                <ContactModal
+  label="Contact"
+  className="group inline-flex items-center gap-2 rounded-full border border-[#7d9b70]/80 bg-[#906198] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_26px_rgba(59,36,63,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70] hover:bg-[#8f6ca1]"
+/>
               </>
             )}
           </div>
@@ -206,15 +105,8 @@ const Navbar = ({ simple = false }: NavbarProps) => {
         </nav>
       </header>
 
-      {/* Spacer keeps page pushed down so fixed navbar does not cover content */}
-      <div
-        className={`bg-[#fffaf5] transition-all duration-300 ${
-          scrolled
-            ? "h-[80px] md:h-[76px]"
-            : "h-[80px] md:h-[224px] lg:h-[244px]"
-        }`}
-        aria-hidden="true"
-      />
+      {/* Spacer so fixed navbar does not cover page content */}
+      <div className="h-[76px] bg-[#fffaf5]" aria-hidden="true" />
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -242,7 +134,7 @@ const Navbar = ({ simple = false }: NavbarProps) => {
                 <div className="flex items-center gap-3">
                   <div className="relative h-12 w-12 overflow-hidden rounded-full bg-white shadow-md">
                     <Image
-                      src="/assets/logo.jpg"
+                      src="/assets/logo-4.png"
                       alt="Purple Leaf Herbs logo"
                       fill
                       sizes="48px"
@@ -295,18 +187,9 @@ const Navbar = ({ simple = false }: NavbarProps) => {
                   </div>
 
                   <div className="mt-6">
-                    <Link
-                      href="#contact"
-                      onClick={() => setOpen(false)}
-                      className="group flex items-center justify-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#3b243f] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_30px_rgba(59,36,63,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
-                    >
-                      Ask Questions Here
-                      <FiArrowUpRight />
-                    </Link>
-
                     <a
                       href="mailto:brooke@purpleleafherbs.com"
-                      className="mt-4 flex items-center justify-center gap-2 text-sm text-[#6f5b75]"
+                      className="flex items-center justify-center gap-2 text-sm text-[#6f5b75]"
                     >
                       <FiMail />
                       brooke@purpleleafherbs.com

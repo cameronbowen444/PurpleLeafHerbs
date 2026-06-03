@@ -4,6 +4,22 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  font-family: var(--font-body), sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+.font-serif {
+  font-family: var(--font-serif), serif;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;

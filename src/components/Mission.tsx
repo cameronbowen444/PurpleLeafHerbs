@@ -1,6 +1,7 @@
 "use client";
-
+import Image from "next/image";
 import { motion } from "framer-motion";
+import { GiHerbsBundle } from "react-icons/gi";
 
 const Mission = () => {
   return (
@@ -11,14 +12,6 @@ const Mission = () => {
       {/* Desktop-only background glow */}
       <div className="absolute left-[-16%] top-[-20%] hidden h-[360px] w-[360px] rounded-full bg-[#d9c1e5]/30 blur-3xl md:block lg:h-[420px] lg:w-[420px]" />
       <div className="absolute bottom-[-25%] right-[-16%] hidden h-[400px] w-[400px] rounded-full bg-[#d8ead0]/40 blur-3xl md:block lg:h-[480px] lg:w-[480px]" />
-
-      {/* Larger botanical background accents */}
-      <div className="absolute left-[-4rem] top-10 hidden text-[11rem] leading-none text-[#a98bb8]/10 lg:block">
-        ✿
-      </div>
-      <div className="absolute right-[-3rem] bottom-16 hidden text-[10rem] leading-none text-[#7d9b70]/10 lg:block">
-        ❧
-      </div>
 
       <div className="relative z-10 mx-auto max-w-7xl">
         <motion.div
@@ -32,60 +25,31 @@ const Mission = () => {
           <div className="absolute left-0 top-0 h-2 w-full bg-[#7d9b70]" />
           <div className="absolute left-0 top-2 h-2 w-full bg-[#8f6ca1]" />
 
-          {/* Background botanical pattern */}
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute left-8 top-10 text-7xl text-[#8f6ca1]/15">
-              ✿
-            </div>
-            <div className="absolute right-10 top-12 text-7xl text-[#7d9b70]/15">
-              ❧
-            </div>
-            <div className="absolute bottom-10 left-12 text-6xl text-[#7d9b70]/15">
-              ❧
-            </div>
-            <div className="absolute bottom-8 right-16 text-6xl text-[#8f6ca1]/15">
-              ✿
-            </div>
-
-            <div className="absolute left-1/2 top-1/2 h-[70%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d8c6df]/60" />
-            <div className="absolute left-1/2 top-1/2 h-[52%] w-[68%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d8ead0]/80" />
-          </div>
-
-          {/* Side decorative circles */}
-          <div className="absolute -left-12 top-12 h-44 w-44 rounded-full border border-[#a98bb8]/25 md:h-52 md:w-52" />
-          <div className="absolute -right-14 bottom-10 h-48 w-48 rounded-full border border-[#7d9b70]/35 md:h-60 md:w-60" />
-
           <div className="relative z-10 mx-auto max-w-5xl">
-            <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-full border-2 border-[#7d9b70] bg-[#fffaf5] text-4xl text-[#8f6ca1] shadow-[0_12px_35px_rgba(76,51,88,0.1)]">
-              ✿
+            <div className="relative mx-auto mb-2 h-20 w-20 overflow-hidden rounded-2xl bg-[#fffaf5] shadow-[0_12px_35px_rgba(76,51,88,0.1)]">
+              <Image
+                src="/assets/logo-4.png"
+                alt="Purple Leaf Herbs logo"
+                fill
+                sizes="70px"
+                className="object-cover"
+              />
             </div>
 
             <div className="mb-6 inline-block">
               <div className="relative inline-block">
                 <span className="absolute -left-4 top-1/2 h-3 w-[112%] -translate-y-1/2 rounded-full bg-[#d8ead0]/90" />
 
-                <p className="relative z-10 text-xs font-semibold uppercase tracking-[0.38em] text-[#8f6ca1]">
+                <p className="relative z-10 text-xs font-semibold uppercase tracking-[0.48em] text-[#8f6ca1]">
                   Mission Statement
                 </p>
               </div>
             </div>
 
-            <h2 className="mx-auto max-w-5xl font-serif text-4xl leading-tight tracking-[-0.04em] text-[#3b243f] md:text-6xl">
-              To support vitality through{" "}
-              <span className="text-[#8f6ca1]">herbs</span>, whole foods, and a
-              grounded lifestyle.
+            <h2 className="mx-auto max-w-5xl font-serif text-3xl leading-tight tracking-[-0.04em] text-[#3b243f] md:text-4xl">
+              To improve and maintain the highest state of health and vitality by supporting the resilience of mind, body, soul connection; utilizing herbs, whole food nutrients, and a healthy lifestyle.
+              
             </h2>
-
-            <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-[#6f5b75]">
-              Purple Leaf Herbs helps nurture the connection between mind, body,
-              and soul through simple, earth-rooted wellness.
-            </p>
-
-            <div className="mx-auto mt-10 flex max-w-md items-center justify-center gap-4">
-              <span className="h-px flex-1 bg-[#8f6ca1]/45" />
-              <span className="text-2xl text-[#7d9b70]">✦</span>
-              <span className="h-px flex-1 bg-[#8f6ca1]/45" />
-            </div>
           </div>
         </motion.div>
       </div>

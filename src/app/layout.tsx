@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Nunito_Sans } from "next/font/google";
 import "./globals.css";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-serif",
+});
+
+const body = Nunito_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-body",
+});
 
 const siteUrl = "https://purple-leaf-herbs.vercel.app";
 
@@ -54,7 +67,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${body.variable} ${serif.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

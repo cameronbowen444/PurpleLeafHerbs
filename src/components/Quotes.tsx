@@ -14,24 +14,25 @@ const inspirations = [
     author: "Hildegard of Bingen",
   },
   {
-    quote: "All living creatures are sparks from the radiation of God’s brilliance.",
+    quote:
+      "All living creatures are sparks from the radiation of God’s brilliance.",
     author: "Hildegard of Bingen",
   },
 ];
 
 const testimonials = [
   {
-    name: "Client Story",
+    name: "Nicolle Bowen",
     role: "Wellness Client",
     text: "Brooke helped me slow down and understand what my body actually needed.",
   },
   {
-    name: "Client Story",
+    name: "Ana Bustos",
     role: "Nutrition Support",
     text: "The guidance felt personal and calming. I left with simple steps I could actually use.",
   },
   {
-    name: "Client Story",
+    name: "Isabel Leyva",
     role: "Herbal Education",
     text: "Purple Leaf Herbs gave me a new way to think about food, herbs, and balance.",
   },
@@ -55,7 +56,7 @@ const Quotes = () => {
 
   const previousTestimonial = () => {
     setTestimonialIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length,
     );
   };
 
@@ -71,14 +72,6 @@ const Quotes = () => {
       {/* Desktop-only atmosphere */}
       <div className="absolute left-[-18%] top-[-20%] hidden h-[420px] w-[420px] rounded-full bg-[#d9c1e5]/25 blur-3xl md:block lg:h-[520px] lg:w-[520px]" />
       <div className="absolute bottom-[-25%] right-[-18%] hidden h-[460px] w-[460px] rounded-full bg-[#d8ead0]/35 blur-3xl md:block lg:h-[560px] lg:w-[560px]" />
-
-      {/* Botanical accents */}
-      <div className="absolute left-[-3rem] top-16 hidden text-[8rem] leading-none text-[#a98bb8]/10 lg:block">
-        ✿
-      </div>
-      <div className="absolute right-[-2rem] bottom-20 hidden text-[8rem] leading-none text-[#7d9b70]/10 lg:block">
-        ❧
-      </div>
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Inspiration headline */}
@@ -108,7 +101,7 @@ const Quotes = () => {
                 transition={{ duration: 0.35, ease: "easeOut" }}
                 className="absolute inset-0 flex flex-col items-center justify-center"
               >
-                <p className="font-serif text-2xl leading-tight text-[#3b243f] md:text-4xl">
+                <p className="font-serif text-2xl leading-tight text-[#3b243f] md:text-3xl">
                   “{inspirations[inspirationIndex].quote}”
                 </p>
 
@@ -121,114 +114,80 @@ const Quotes = () => {
         </motion.div>
 
         {/* Testimonials */}
-        <div className="mx-auto mt-12 max-w-7xl md:mt-14">
+        <div className="mx-auto mt-10 max-w-6xl">
           <motion.div
             initial={{ y: 18, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.55, ease: "easeOut" }}
-            className="mb-10 text-center"
+            className="mb-8 text-center"
           >
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.38em] text-[#8f6ca1]">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.34em] text-[#8f6ca1]">
               Kind Words
             </p>
 
-            <h2 className="font-serif text-5xl leading-[0.98] tracking-[-0.06em] text-[#3b243f] md:text-7xl">
-              Testimonials
+            <h2 className="font-serif text-4xl leading-tight tracking-[-0.05em] text-[#3b243f] md:text-5xl">
+              Client Experiences
             </h2>
-
-            <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-[#6f5b75]">
-              Gentle words from people who found more rhythm, clarity, and calm.
-            </p>
           </motion.div>
 
-          {/* Carousel stage */}
           <motion.div
             initial={{ y: 22, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ delay: 0.05, duration: 0.55, ease: "easeOut" }}
-            className="relative mx-auto min-h-[430px] max-w-6xl md:min-h-[390px]"
+            className="relative mx-auto max-w-4xl"
           >
-            {/* Left card */}
-            <div className="absolute left-0 top-20 hidden w-[34%] rounded-[2rem] border border-[#d8c6df]/70 bg-white/75 p-8 text-center shadow-[0_12px_35px_rgba(76,51,88,0.06)] lg:block">
-              <p className="mx-auto max-w-sm text-sm leading-7 text-[#6f5b75]">
-                “{testimonials[previousIndex].text}”
-              </p>
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#d8c6df]/70 bg-[#fffaf5] shadow-[0_14px_40px_rgba(76,51,88,0.08)]">
+              {/* Top accent */}
+              <div className="absolute left-0 top-0 h-1.5 w-full bg-[#7d9b70]" />
+              <div className="absolute left-0 top-1.5 h-1.5 w-full bg-[#8f6ca1]" />
 
-              <div className="mx-auto mt-8 flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#7d9b70] bg-[#f8f0e8] font-serif text-xl text-[#8f6ca1]">
-                ✿
+
+              <div className="relative z-10 p-7 text-center md:p-10">
+                <div className="mx-auto  flex h-14 w-14 pt-6 items-center justify-center rounded-full border border-[#7d9b70]/60 bg-[#f8f0e8] font-serif text-7xl text-[#8f6ca1]">
+                  “
+                </div>
+
+                <div className="relative min-h-[150px] md:min-h-[120px]">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={testimonialIndex}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -12 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="absolute inset-0 flex flex-col items-center justify-center"
+                    >
+                      <p className="mx-auto max-w-2xl font-serif text-2xl leading-tight text-[#3b243f] md:text-3xl">
+                        “{testimonials[testimonialIndex].text}”
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                <div className="mx-auto mt-7 flex max-w-sm items-center justify-center gap-3">
+                  <span className="h-px flex-1 bg-[#8f6ca1]/35" />
+                  <span className="text-xl text-[#7d9b70]">✦</span>
+                  <span className="h-px flex-1 bg-[#8f6ca1]/35" />
+                </div>
+
+                <div className="mt-5">
+                  <p className="font-serif text-xl text-[#3b243f]">
+                    {testimonials[testimonialIndex].name}
+                  </p>
+                  <p className="mt-1 text-xs uppercase tracking-[0.22em] text-[#7d9b70]">
+                    {testimonials[testimonialIndex].role}
+                  </p>
+                </div>
               </div>
-
-              <p className="mt-4 font-serif text-lg text-[#3b243f]">
-                {testimonials[previousIndex].name}
-              </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-[#7d9b70]">
-                {testimonials[previousIndex].role}
-              </p>
-            </div>
-
-            {/* Right card */}
-            <div className="absolute right-0 top-20 hidden w-[34%] rounded-[2rem] border border-[#d8c6df]/70 bg-white/75 p-8 text-center shadow-[0_12px_35px_rgba(76,51,88,0.06)] lg:block">
-              <p className="mx-auto max-w-sm text-sm leading-7 text-[#6f5b75]">
-                “{testimonials[nextIndex].text}”
-              </p>
-
-              <div className="mx-auto mt-8 flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#7d9b70] bg-[#f8f0e8] font-serif text-xl text-[#8f6ca1]">
-                ❧
-              </div>
-
-              <p className="mt-4 font-serif text-lg text-[#3b243f]">
-                {testimonials[nextIndex].name}
-              </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-[#7d9b70]">
-                {testimonials[nextIndex].role}
-              </p>
-            </div>
-
-            {/* Center featured card */}
-            <div className="relative z-10 mx-auto w-full max-w-2xl rounded-[2.5rem] border-2 border-[#7d9b70] bg-[#3b243f] p-8 text-center text-white shadow-[0_22px_70px_rgba(59,36,63,0.22)] md:p-10">
-              <div className="absolute left-0 top-0 h-2 w-full rounded-t-[2.5rem] bg-[#7d9b70]" />
-              <div className="absolute left-0 top-2 h-2 w-full bg-[#8f6ca1]" />
-
-              <p className="font-serif text-7xl leading-none text-white/20">
-                “
-              </p>
-
-              <div className="relative min-h-[160px] md:min-h-[150px]">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={testimonialIndex}
-                    initial={{ x: 26, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -26, opacity: 0 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
-                    className="absolute inset-0 flex flex-col items-center justify-center"
-                  >
-                    <p className="max-w-xl font-serif text-3xl leading-tight text-white md:text-4xl">
-                      “{testimonials[testimonialIndex].text}”
-                    </p>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              <div className="mx-auto mt-8 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#7d9b70] bg-[#fffaf5] font-serif text-2xl text-[#8f6ca1] shadow-[0_12px_35px_rgba(0,0,0,0.14)]">
-                ✿
-              </div>
-
-              <p className="mt-4 font-serif text-xl text-white">
-                {testimonials[testimonialIndex].name}
-              </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.24em] text-[#d8ead0]">
-                {testimonials[testimonialIndex].role}
-              </p>
             </div>
 
             {/* Controls */}
-            <div className="mt-8 flex items-center justify-center gap-4">
+            <div className="mt-6 flex items-center justify-center gap-4">
               <button
                 onClick={previousTestimonial}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#d8c6df] bg-white text-[#3b243f] transition-all duration-300 hover:bg-[#3b243f] hover:text-white"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#d8c6df] bg-white text-[#3b243f] shadow-[0_8px_22px_rgba(76,51,88,0.06)] transition-all duration-300 hover:border-[#7d9b70] hover:bg-[#f8f0e8]"
                 aria-label="Previous testimonial"
               >
                 <FiArrowLeft />
@@ -239,10 +198,10 @@ const Quotes = () => {
                   <button
                     key={index}
                     onClick={() => setTestimonialIndex(index)}
-                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                    className={`h-2 rounded-full transition-all duration-300 ${
                       testimonialIndex === index
-                        ? "w-8 bg-[#7d9b70]"
-                        : "w-2.5 bg-[#3b243f]/25"
+                        ? "w-7 bg-[#7d9b70]"
+                        : "w-2 bg-[#3b243f]/25"
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
@@ -251,7 +210,7 @@ const Quotes = () => {
 
               <button
                 onClick={nextTestimonial}
-                className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-[#7d9b70] bg-[#3b243f] text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#8f6ca1]"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#7d9b70] bg-[#3b243f] text-white shadow-[0_8px_22px_rgba(76,51,88,0.08)] transition-all duration-300 hover:bg-[#8f6ca1]"
                 aria-label="Next testimonial"
               >
                 <FiArrowRight />

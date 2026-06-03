@@ -4,9 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FiArrowUpRight, FiX } from "react-icons/fi";
+import { FiArrowUpRight, FiX, FiBookOpen } from "react-icons/fi";
+import ContactModal from "./ContactModal";
 
-const founderDetails = ["Nutrition Coach", "Herbalist", "Holistic Educator"];
+const founderDetails = [
+  "Nutrition Herbalist",
+  "Herbal Specialist",
+  "Holistic Educator",
+];
 
 const About = () => {
   const [bioOpen, setBioOpen] = useState(false);
@@ -29,14 +34,6 @@ const About = () => {
         <div className="absolute left-[-20%] top-[-20%] hidden h-[460px] w-[460px] rounded-full bg-[#d9c1e5]/30 blur-3xl md:block lg:h-[560px] lg:w-[560px]" />
         <div className="absolute bottom-[-25%] right-[-20%] hidden h-[500px] w-[500px] rounded-full bg-[#d8ead0]/40 blur-3xl md:block lg:h-[620px] lg:w-[620px]" />
 
-        {/* Botanical accents */}
-        <div className="absolute left-[-3rem] top-20 hidden text-[8rem] leading-none text-[#a98bb8]/10 lg:block">
-          ✿
-        </div>
-        <div className="absolute right-[-2rem] bottom-24 hidden text-[8rem] leading-none text-[#7d9b70]/10 lg:block">
-          ❧
-        </div>
-
         <div className="relative z-10 mx-auto max-w-7xl">
           {/* Top row */}
           <motion.div
@@ -56,18 +53,10 @@ const About = () => {
                 </div>
               </div>
 
-              <h2 className="font-serif text-5xl leading-[0.95] tracking-[-0.06em] text-[#3b243f] md:text-7xl">
-                Brooke
+              <h2 className="font-serif text-4xl leading-[0.95] tracking-[-0.06em] text-[#3b243f] md:text-6xl">
+                Dina Brooke
               </h2>
             </div>
-
-            <Link
-              href="#contact"
-              className="group inline-flex w-fit items-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#3b243f] px-6 py-3.5 text-sm font-semibold text-white shadow-[0_12px_32px_rgba(59,36,63,0.15)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#8f6ca1]"
-            >
-              Connect
-              <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </Link>
           </motion.div>
 
           {/* Editorial founder layout */}
@@ -81,7 +70,7 @@ const About = () => {
               className="space-y-8"
             >
               <div className="flex items-center gap-5">
-                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-[#7d9b70] bg-[#fffaf5] shadow-[0_10px_30px_rgba(76,51,88,0.1)]">
+                <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full border-2 border-[#7d9b70] bg-[#fffaf5] shadow-[0_10px_30px_rgba(76,51,88,0.1)] mt-4">
                   <Image
                     src="/assets/founder.jpg"
                     alt="Brooke, founder of Purple Leaf Herbs"
@@ -120,10 +109,13 @@ const About = () => {
               viewport={{ once: true, amount: 0.25 }}
               transition={{ delay: 0.05, duration: 0.6, ease: "easeOut" }}
             >
-              <p className="max-w-4xl font-serif text-4xl leading-tight tracking-[-0.035em] text-[#3b243f] md:text-6xl">
-                “Wellness should feel{" "}
-                <span className="text-[#8f6ca1]">personal</span>, peaceful, and
-                connected to the life you actually live.”
+              <p className="mt-8 max-w-2xl text-lg leading-8 text-[#6f5b75]">
+                Dina Brooke is the creator of Purple Leaf Herbs. She has
+                practiced a plant-based lifestyle for over 30 years and earned a
+                degree in Holistic Healthcare. She specializes in Western
+                Herbalism and Holistic Nutrition. After graduation Brooke served
+                as an instructor in the holistic nutrition program at the
+                college sharing her knowledge with students.
               </p>
 
               <p className="mt-8 max-w-2xl text-lg leading-8 text-[#6f5b75]">
@@ -150,10 +142,10 @@ const About = () => {
 
             <button
               onClick={() => setBioOpen(true)}
-              className="group inline-flex items-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#3b243f] px-7 py-4 text-sm font-semibold text-white shadow-[0_12px_35px_rgba(59,36,63,0.16)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#8f6ca1]"
+              className="group inline-flex items-center gap-2 rounded-full border border-[#d8c6df]/80 bg-white/60 px-6 py-3 text-md font-medium text-[#5f6f54] shadow-[0_8px_24px_rgba(76,51,88,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70] hover:bg-white hover:text-[#3b243f]"
             >
-              Learn More About Brooke
-              <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              Read Brooke’s Full Story
+              <FiBookOpen className="transition-transform duration-300  group-hover:-translate-y-1" />
             </button>
           </motion.div>
         </div>
@@ -196,14 +188,14 @@ const About = () => {
 
               <div className="grid pt-4 lg:grid-cols-[0.85fr_1.15fr]">
                 {/* Image Side */}
-                <div className="relative h-[460px] overflow-hidden bg-[#3b243f] sm:h-[560px] lg:h-auto lg:min-h-[680px]">
+                <div className="relative h-[260px] overflow-hidden bg-[#3b243f] sm:h-[360px] lg:h-auto lg:min-h-[680px]">
                   <Image
                     src="/assets/founder2.jpg"
                     alt="Brooke, founder of Purple Leaf Herbs"
                     fill
                     sizes="(max-width: 1024px) 100vw, 45vw"
                     className="object-cover"
-                    style={{ objectPosition: "center 18%" }}
+                    style={{ objectPosition: "center 38%" }}
                     priority
                   />
 
@@ -211,23 +203,16 @@ const About = () => {
 
                   <div className="absolute bottom-8 left-8 right-8 text-white">
                     <p className="mb-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#d8ead0]">
-                      Founder Story
+                      Dina Brooke
                     </p>
                     <h3 className="font-serif text-4xl leading-tight md:text-5xl">
-                      Brooke’s path to plant-centered wellness.
+                      Brooke’s Story and Core Beliefs.
                     </h3>
                   </div>
                 </div>
 
                 {/* Bio Side */}
                 <div className="relative overflow-hidden p-8 md:p-12 lg:p-14">
-                  <div className="pointer-events-none absolute -right-8 top-8 text-8xl text-[#7d9b70]/10">
-                    ❧
-                  </div>
-                  <div className="pointer-events-none absolute -left-8 bottom-8 text-8xl text-[#a98bb8]/10">
-                    ✿
-                  </div>
-
                   <div className="relative z-10">
                     <div className="mb-5 inline-block">
                       <div className="relative inline-block">
@@ -239,31 +224,54 @@ const About = () => {
                       </div>
                     </div>
 
-                    <h2 className="font-serif text-4xl leading-tight tracking-[-0.04em] text-[#3b243f] md:text-6xl">
-                      Herbalist, nutrition coach, and holistic educator.
+                    <h2 className="font-serif text-3xl leading-tight tracking-[-0.04em] text-[#3b243f] md:text-5xl">
+                      My Story and Beliefs
                     </h2>
 
-                    <div className="mt-8 space-y-6 text-base leading-8 text-[#6f5b75] md:text-lg">
+                    <div className="mt-8 space-y-6 text-base leading-8 text-[#6f5b75] md:text-md">
                       <p>
-                        Brooke is the founder of Purple Leaf Herbs, where she
-                        blends herbal education, nutrition coaching, and gentle
-                        lifestyle support to help wellness feel more personal
-                        and grounded.
+                        As a clinical herbalist and holistic nutrition
+                        practitioner, Purple Leaf Herbs is dedicated to helping
+                        people achieve optimal health and wellness through the
+                        use of natural remedies and whole food nutrition. With a
+                        deep understanding of the powerful healing properties of
+                        plants and the ways in which food affects the body,
+                        Brooke has dedicated her life to studying the art and
+                        science of herbal medicine and holistic nutrition. This
+                        journey began with a personal interest in natural health
+                        and healing, which led her to pursue an education in
+                        both clinical herbalism and holistic nutrition.
                       </p>
-
                       <p>
-                        Her work is rooted in the belief that natural wellness
-                        should not feel overwhelming. Through herbs, whole
-                        foods, simple daily rituals, and patient education, she
-                        helps people reconnect with their bodies and build a
-                        calmer rhythm of care.
+                        Today Brooke runs her own practice, where she works with
+                        clients to develop personalized health plans that
+                        address their unique needs and concerns. Through the use
+                        of medicinal herbs and whole food nutrition, Brooke
+                        helps clients achieve balance and harmony in all aspects
+                        of their lives. Whether dealing with chronic pain,
+                        stress, hormonal imbalances or other health concerns,
+                        she is able to create customized solutions that address
+                        the root cause of the issue.
                       </p>
-
                       <p>
-                        Purple Leaf Herbs was created as a space for people who
-                        want to learn, ask questions, and explore plant-centered
-                        living in a way that feels realistic, peaceful, and
-                        connected to everyday life.
+                        With a holistic understanding of the ways in which
+                        plants and food interact with the body, Brooke is able
+                        to offer a range of nature-based remedies and health
+                        solutions. From herbal tinctures and teas to dietary
+                        recommendations and lifestyle changes, she works closely
+                        with clients to help them achieve optimal health and
+                        wellness.
+                      </p>
+                      <p>
+                        As a respected member of the holistic health community,
+                        Brooke is also committed to education and outreach. She
+                        teaches classes on herbal medicine and holistic
+                        nutrition and hosts workshops and events to promote the
+                        importance of natural health and healing. Through her
+                        practice and advocacy work, Brooke is helping to create
+                        a world where people can access the healing power of
+                        plants and live in harmony with their bodies and the
+                        natural world.
                       </p>
                     </div>
 
@@ -281,14 +289,7 @@ const About = () => {
                     </div>
 
                     <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                      <Link
-                        href="#contact"
-                        onClick={() => setBioOpen(false)}
-                        className="group inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#3b243f] px-7 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
-                      >
-                        Connect With Brooke
-                        <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                      </Link>
+                      <ContactModal />
 
                       <button
                         onClick={() => setBioOpen(false)}

@@ -108,56 +108,27 @@ const Services = () => {
                 duration: 0.5,
                 ease: "easeOut",
               }}
-              className="group overflow-hidden rounded-xl border border-[#d8c6df]/60 bg-[#f8f0e8] shadow-[0_12px_35px_rgba(76,51,88,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#7d9b70]/70"
+              className="group overflow-hidden rounded-[1.75rem] border border-[#d8c6df]/60 bg-[#f8f0e8] shadow-[0_12px_35px_rgba(76,51,88,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#7d9b70]/70"
             >
-              {/* Image top with elegant light wood frame */}
-<div className="pb-0">
-  {/* outer bevel */}
-  <div
-    className="relative overflow-hidden border shadow-[0_12px_26px_rgba(76,51,88,0.11)]"
-    style={{
-      borderColor: "#f1dcb8 #b78355 #b78355 #f1dcb8",
-      backgroundColor: "#d4aa76",
-    }}
-  >
-    {/* subtle polished wood surface */}
-    <div
-      className="border-[8px]"
-      style={{
-        borderColor: "#d4aa76",
-        background:
-          "linear-gradient(135deg, #e7c797 0%, #c99662 48%, #dfbd89 100%)",
-      }}
-    >
-      {/* inner bevel */}
-      <div
-        className="border-[4px]"
-        style={{
-          borderColor: "#9a6a42 #f0d7ae #f0d7ae #9a6a42",
-          backgroundColor: "#fffaf5",
-        }}
-      >
-        {/* soft mat */}
-        <div className="border border-[#d8c6df]/45 bg-[#fffaf5] p-[3%]">
-          <div className="relative h-36 overflow-hidden sm:h-40">
-            <Image
-              src={item.image}
-              alt={item.title}
-              fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover"
-            />
+              {/* Image top */}
+              <div className="relative h-48 overflow-hidden sm:h-52">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-[#2b1731]/8 via-transparent to-transparent" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#2b1731]/30 via-transparent to-transparent" />
+
+                <span className="absolute left-4 top-4 rounded-full border-2 border-[#7d9b70] bg-[#fffaf5]/95 px-3.5 py-1.5 font-serif text-lg text-[#8f6ca1] shadow-[0_8px_20px_rgba(76,51,88,0.1)]">
+                  {item.number}
+                </span>
+              </div>
 
               {/* Text bottom */}
-              <div className="p-5 pt-7 md:p-6 md:pt-8">
+              <div className="p-5 md:p-6">
                 <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#8f6ca1]">
                   Purple Leaf Herbs
                 </p>
@@ -184,27 +155,25 @@ const Services = () => {
         </div>
 
         {/* Bottom CTA */}
-<motion.div
-  initial={{ y: 18, opacity: 0 }}
-  whileInView={{ y: 0, opacity: 1 }}
-  viewport={{ once: true, amount: 0.25 }}
-  transition={{ delay: 0.05, duration: 0.55, ease: "easeOut" }}
-  className="mx-auto mt-12 max-w-4xl border-t border-[#d8c6df]/70 pt-8 text-center"
->
-  <p className="font-serif text-2xl leading-tight text-[#3b243f] md:text-3xl">
-    Not sure where to begin?
-  </p>
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ delay: 0.05, duration: 0.55, ease: "easeOut" }}
+          className="mt-12 flex flex-col items-center justify-between gap-5 rounded-[2rem] border-2 border-[#7d9b70]/70 bg-white/80 px-6 py-5 text-center shadow-[0_12px_35px_rgba(76,51,88,0.06)] md:flex-row md:rounded-full md:text-left"
+        >
+          <p className="font-serif text-2xl text-[#3b243f]">
+            Not sure which service fits best?
+          </p>
 
-  <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#6f5b75] md:text-base">
-    Brooke can help you understand which offering best supports your current
-    wellness journey.
-  </p>
-
-  <ContactModal
-    label="Ask Brooke"
-    className="group mt-6 inline-flex items-center gap-2 rounded-full border border-[#d8c6df]/80 bg-white px-6 py-3 text-sm font-semibold text-[#3b243f] shadow-[0_8px_24px_rgba(76,51,88,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70] hover:bg-[#fffaf5]"
-  />
-</motion.div>
+          <Link
+            href="#contact"
+            className="group inline-flex items-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#3b243f] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#8f6ca1]"
+          >
+            Ask Brooke
+            <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
