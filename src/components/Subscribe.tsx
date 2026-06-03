@@ -33,9 +33,6 @@ const Subscribe = () => {
       id="subscribe"
       className="relative overflow-hidden bg-[#fffaf5] px-4 py-12 text-[#302133] md:py-14"
     >
-      {/* Desktop-only soft background */}
-      <div className="absolute left-[-18%] top-[-20%] hidden h-[360px] w-[360px] rounded-full bg-[#d9c1e5]/25 blur-3xl md:block" />
-      <div className="absolute bottom-[-25%] right-[-16%] hidden h-[400px] w-[400px] rounded-full bg-[#d8ead0]/30 blur-3xl md:block" />
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <motion.div
@@ -45,9 +42,6 @@ const Subscribe = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="relative overflow-hidden rounded-[2rem] border border-[#7d9b70]/60 bg-[#f8f0e8] px-5 py-8 text-center shadow-[0_12px_35px_rgba(76,51,88,0.07)] md:rounded-[2.5rem] md:px-9 md:py-10"
         >
-          {/* Top accent lines */}
-          <div className="absolute left-0 top-0 h-1.5 w-full bg-[#7d9b70]" />
-          <div className="absolute left-0 top-1.5 h-1.5 w-full bg-[#8f6ca1]" />
 
           
           <div className="relative z-10 mx-auto max-w-4xl">
@@ -83,7 +77,7 @@ const Subscribe = () => {
                     onClick={() => setSelected(option.id)}
                     className={`group rounded-[1.4rem] border p-4 text-left transition-all duration-300 ${
                       active
-                        ? "border-[#7d9b70] bg-[#3b243f] text-white shadow-[0_10px_26px_rgba(59,36,63,0.14)]"
+                        ? "border-[#7d9b70] bg-[#906198] text-white shadow-[0_10px_26px_rgba(59,36,63,0.14)]"
                         : "border-[#d8c6df]/80 bg-white/70 text-[#3b243f] hover:border-[#7d9b70]"
                     }`}
                   >
@@ -124,7 +118,7 @@ const Subscribe = () => {
 
               <button
                 type="submit"
-                className="group inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#7d9b70] bg-[#3b243f] px-5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
+                className="group inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#7d9b70] bg-[#906198] px-5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
               >
                 Join List
                 <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

@@ -75,13 +75,11 @@ const ContactModal = ({
             className="relative mx-auto my-3 max-w-5xl overflow-hidden rounded-[1.75rem] border border-[#7d9b70]/70 bg-[#fffaf5] shadow-[0_20px_65px_rgba(43,23,49,0.26)] md:my-0 md:rounded-[2rem]"
             style={{ zIndex: 3 }}
           >
-            {/* Top accent lines */}
-            <div className="absolute left-0 top-0 z-20 h-1.5 w-full bg-[#7d9b70]" />
-            <div className="absolute left-0 top-1.5 z-20 h-1.5 w-full bg-[#8f6ca1]" />
+
 
             <div className="grid pt-3 lg:grid-cols-[0.9fr_1.1fr]">
               {/* Left side */}
-              <div className="relative flex flex-col justify-between overflow-hidden bg-[#3b243f] p-7 text-white md:p-9 lg:p-10">
+              <div className="relative flex flex-col justify-between overflow-hidden bg-[#906198] p-7 text-white md:p-9 lg:p-10">
                 
                 <div className="relative z-10">
                   <div className="mb-5 inline-block">
@@ -189,7 +187,7 @@ const ContactModal = ({
 
                 <button
                   type="submit"
-                  className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#7d9b70] bg-[#3b243f] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_28px_rgba(59,36,63,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
+                  className="group mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#7d9b70] bg-[#906198] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_28px_rgba(59,36,63,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
                 >
                   Submit Message
                   <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

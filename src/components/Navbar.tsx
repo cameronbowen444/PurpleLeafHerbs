@@ -71,7 +71,7 @@ const Navbar = ({ simple = false }: NavbarProps) => {
             {simple ? (
               <Link
                 href="/"
-                className="group flex items-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#3b243f] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_30px_rgba(59,36,63,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
+                className="group flex items-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#906198] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_30px_rgba(59,36,63,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
               >
                 Home
                 <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

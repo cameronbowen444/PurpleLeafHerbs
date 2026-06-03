@@ -99,7 +99,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
           </header>
 
           {/* Smaller image */}
-          <div className="relative mx-auto mt-8 h-[240px] max-w-4xl overflow-hidden rounded-[1.75rem] border border-[#7d9b70]/70 shadow-[0_12px_35px_rgba(76,51,88,0.07)] md:h-[340px]">
+          <div className="relative mx-auto mt-8 h-[200px] max-w-4xl overflow-hidden rounded-[1.75rem] border border-[#7d9b70]/70 shadow-[0_12px_35px_rgba(76,51,88,0.07)] md:h-[180px]">
             <Image
               src={post.image}
               alt={post.title}

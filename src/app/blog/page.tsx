@@ -22,17 +22,7 @@ const BlogPage = () => {
         <div className="relative z-10 mx-auto max-w-6xl">
           {/* Blog intro box */}
           <div className="relative overflow-hidden rounded-[2rem] border border-[#7d9b70]/60 bg-[#f8f0e8] px-5 py-8 text-center shadow-[0_12px_35px_rgba(76,51,88,0.06)] md:px-8 md:py-9">
-            <div className="absolute left-0 top-0 h-1.5 w-full bg-[#7d9b70]" />
-            <div className="absolute left-0 top-1.5 h-1.5 w-full bg-[#8f6ca1]" />
-
-            <div className="pointer-events-none absolute -left-6 top-7 text-6xl text-[#a98bb8]/10">
-              ✿
-            </div>
-
-            <div className="pointer-events-none absolute -right-6 bottom-5 text-6xl text-[#7d9b70]/10">
-              ❧
-            </div>
-
+          
             <div className="relative z-10">
               <div className="mb-4 inline-block">
                 <div className="relative inline-block">
@@ -62,7 +52,7 @@ const BlogPage = () => {
 
                 <button
                   type="submit"
-                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#7d9b70] bg-[#3b243f] px-5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
+                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-[#7d9b70] bg-[#906198] px-5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
                 >
                   Sign up
                 </button>
@@ -119,7 +109,7 @@ const BlogPage = () => {
           <div className="mt-10 text-center">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full border border-[#7d9b70] bg-[#3b243f] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
+              className="inline-flex items-center gap-2 rounded-full border border-[#7d9b70] bg-[#906198] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
             >
               Back Home
               <FiArrowUpRight />
