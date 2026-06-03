@@ -88,7 +88,7 @@ const Navbar = ({ simple = false }: NavbarProps) => {
             >
               <div className="relative h-20 w-20 overflow-hidden rounded-[1.4rem] border border-[#d8c6df] bg-[#3b243f] p-2 shadow-[0_14px_35px_rgba(59,36,63,0.16)]">
                 <Image
-                  src="/assets/logo.jpg"
+                  src="/assets/logo-4.png"
                   alt="Purple Leaf Herbs logo"
                   fill
                   sizes="80px"
@@ -130,7 +130,7 @@ const Navbar = ({ simple = false }: NavbarProps) => {
               }`}
             >
               <Image
-                src="/assets/logo.jpg"
+                src="/assets/logo-4.png"
                 alt="Purple Leaf Herbs logo"
                 fill
                 sizes="48px"
