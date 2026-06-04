@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FiArrowLeft, FiArrowUpRight } from "react-icons/fi";
-import { blogPosts } from "@/app/data/blogPosts";
 import Navbar from "@/components/Navbar";
+import { prisma } from "@/lib/prisma";
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -11,15 +11,16 @@ type BlogPostPageProps = {
   }>;
 };
 
-export const generateStaticParams = () => {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
-};
+export const dynamic = "force-dynamic";
 
 export const generateMetadata = async ({ params }: BlogPostPageProps) => {
   const { slug } = await params;
-  const post = blogPosts.find((item) => item.slug === slug);
+
+  const post = await prisma.blogPost.findUnique({
+    where: {
+      slug,
+    },
+  });
 
   if (!post) {
     return {
@@ -47,13 +48,33 @@ export const generateMetadata = async ({ params }: BlogPostPageProps) => {
 
 const BlogPostPage = async ({ params }: BlogPostPageProps) => {
   const { slug } = await params;
-  const post = blogPosts.find((item) => item.slug === slug);
 
-  if (!post) {
+  const post = await prisma.blogPost.findUnique({
+    where: {
+      slug,
+    },
+  });
+
+  if (!post || !post.published) {
     notFound();
   }
 
-  const relatedPosts = blogPosts.filter((item) => item.slug !== post.slug);
+  const relatedPosts = await prisma.blogPost.findMany({
+    where: {
+      published: true,
+      NOT: {
+        id: post.id,
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 2,
+  });
+
+  const paragraphs = Array.isArray(post.content)
+    ? post.content.map((paragraph) => String(paragraph))
+    : [];
 
   return (
     <main className="min-h-screen bg-[#fffaf5] text-[#302133]">
@@ -98,8 +119,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
             </p>
           </header>
 
-          {/* Smaller image */}
-          <div className="relative mx-auto mt-8 h-[200px] max-w-4xl overflow-hidden rounded-[1.75rem] border border-[#7d9b70]/70 shadow-[0_12px_35px_rgba(76,51,88,0.07)] md:h-[180px]">
+          <div className="relative mx-auto mt-8 h-[240px] max-w-4xl overflow-hidden rounded-[1.75rem] border border-[#7d9b70]/70 shadow-[0_12px_35px_rgba(76,51,88,0.07)] md:h-[340px]">
             <Image
               src={post.image}
               alt={post.title}
@@ -121,9 +141,9 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
               </div>
 
               <div className="space-y-5">
-                {post.content.map((paragraph) => (
+                {paragraphs.map((paragraph, index) => (
                   <p
-                    key={paragraph}
+                    key={`${paragraph}-${index}`}
                     className="text-base leading-8 text-[#5f4f66]"
                   >
                     {paragraph}
@@ -133,49 +153,51 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
             </div>
           </div>
 
-          <section className="mt-12">
-            <div className="mb-6 flex flex-col gap-4 border-b border-[#d8c6df]/70 pb-5 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8f6ca1]">
-                  Keep Reading
-                </p>
+          {relatedPosts.length > 0 && (
+            <section className="mt-12">
+              <div className="mb-6 flex flex-col gap-4 border-b border-[#d8c6df]/70 pb-5 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#8f6ca1]">
+                    Keep Reading
+                  </p>
 
-                <h2 className="font-serif text-3xl text-[#3b243f] md:text-4xl">
-                  More from the blog
-                </h2>
+                  <h2 className="font-serif text-3xl text-[#3b243f] md:text-4xl">
+                    More from the blog
+                  </h2>
+                </div>
+
+                <Link
+                  href="/blog"
+                  className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#6f5b75] underline decoration-[#7d9b70] decoration-4 underline-offset-8 transition-colors duration-300 hover:text-[#3b243f]"
+                >
+                  View All
+                  <FiArrowUpRight />
+                </Link>
               </div>
 
-              <Link
-                href="/blog"
-                className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#6f5b75] underline decoration-[#7d9b70] decoration-4 underline-offset-8 transition-colors duration-300 hover:text-[#3b243f]"
-              >
-                View All
-                <FiArrowUpRight />
-              </Link>
-            </div>
+              <div className="grid gap-5 md:grid-cols-2">
+                {relatedPosts.map((relatedPost) => (
+                  <Link
+                    key={relatedPost.id}
+                    href={`/blog/${relatedPost.slug}`}
+                    className="group rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/75 p-5 shadow-[0_10px_28px_rgba(76,51,88,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70]"
+                  >
+                    <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#8f6ca1]">
+                      {relatedPost.category}
+                    </p>
 
-            <div className="grid gap-5 md:grid-cols-2">
-              {relatedPosts.slice(0, 2).map((relatedPost) => (
-                <Link
-                  key={relatedPost.slug}
-                  href={`/blog/${relatedPost.slug}`}
-                  className="group rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/75 p-5 shadow-[0_10px_28px_rgba(76,51,88,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70]"
-                >
-                  <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#8f6ca1]">
-                    {relatedPost.category}
-                  </p>
+                    <h3 className="font-serif text-2xl leading-tight text-[#3b243f]">
+                      {relatedPost.title}
+                    </h3>
 
-                  <h3 className="font-serif text-2xl leading-tight text-[#3b243f]">
-                    {relatedPost.title}
-                  </h3>
-
-                  <p className="mt-3 text-sm leading-6 text-[#6f5b75]">
-                    {relatedPost.excerpt}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </section>
+                    <p className="mt-3 text-sm leading-6 text-[#6f5b75]">
+                      {relatedPost.excerpt}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </article>
     </main>

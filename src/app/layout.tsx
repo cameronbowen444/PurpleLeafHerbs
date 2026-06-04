@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Cormorant_Garamond, Nunito_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -114,10 +115,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${body.variable} ${serif.variable}`}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${body.variable} ${serif.variable}`}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
