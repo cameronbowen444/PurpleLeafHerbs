@@ -7,7 +7,7 @@ import Quotes from "@/components/Quotes";
 import Subscribe from "@/components/Subscribe";
 import Footer from "@/components/Footer";
 import ContactModal from "@/components/ContactModal";
-import Services2 from "@/components/Services2";
+import ScrollDownButton from "@/components/ScrollDownButton";
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#fffaf5]">
@@ -15,11 +15,11 @@ export default function Home() {
       <Hero />
       <About />
       <Services />
-      {/* <Services2 /> */}
       <Mission />
       <Quotes />
       <Subscribe />
       <Footer />
+      <ScrollDownButton />
       <ContactModal floating />
     </main>
   );
