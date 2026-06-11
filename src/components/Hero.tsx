@@ -19,7 +19,7 @@ const Hero = () => {
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-8rem)] max-w-7xl items-center gap-14 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
         {/* Left */}
-        <div className="max-w-4xl animate-[fadeUp_0.7s_ease-out_both] text-center lg:text-left">
+        <div className="max-w-4xl animate-[fadeUp_0.7s_ease-out_both] text-center">
           <div className="mb-6 inline-block">
             <div className="relative inline-block">
               <span className="absolute -left-4 top-1/2 h-3 w-[110%] -translate-y-1/2 rounded-full bg-[#d8ead0]/90" />
@@ -38,24 +38,26 @@ const Hero = () => {
             </span>
           </h1>
 
-          <p className="mx-auto mt-7 max-w-xl text-lg leading-8 text-[#6f5b75] lg:mx-0">
+          <p className="mx-auto mt-7 max-w-xl text-lg leading-8 text-[#6f5b75]">
             Nutrition Herbalist and Herbal Specialist
           </p>
 
-          <div className="mt-9 flex flex-col items-center gap-4 md:flex-row lg:justify-start ">
-            <ContactModal
-              label="Contact Brooke"
-            />
+          <div className="mx-auto mt-9 max-w-xl">
+  <p className="font-serif text-2xl leading-9 text-[#3b243f]/85">
+    Gentle, plant-based support for women seeking more balance, nourishment,
+    and everyday wellness.
+  </p>
 
-            <Link
-              href="#services"
-              className="text-sm font-semibold text-[#6f5b75] underline decoration-[#7d9b70] decoration-4 underline-offset-8 transition-colors duration-300 hover:text-[#3b243f]"
-            >
-              View services
-            </Link>
-          </div>
+  <div className="mx-auto mt-6 flex max-w-sm items-center justify-center gap-3">
+    <span className="h-px flex-1 bg-[#8f6ca1]/40" />
+    <span className="text-sm uppercase tracking-[0.3em] text-[#7d9b70]">
+      naturally rooted
+    </span>
+    <span className="h-px flex-1 bg-[#8f6ca1]/40" />
+  </div>
+</div>
 
-          <div className="mt-16 hidden items-center gap-5 text-left lg:flex">
+          <div className="mt-16 hidden items-center justify-center gap-5 text-left lg:flex">
             <div className="h-px w-16 bg-gradient-to-r from-[#8f6ca1] to-[#7d9b70]" />
 
             <p className="max-w-sm font-serif text-xl leading-8 text-[#3b243f]/80">
