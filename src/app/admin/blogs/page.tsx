@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
-import { FiArrowLeft, FiEdit3, FiPlus } from "react-icons/fi";
+import { FiArrowLeft, FiEdit3, FiEye, FiPlus } from "react-icons/fi";
 import { prisma } from "@/lib/prisma";
 
 const AdminBlogsPage = async () => {
@@ -90,13 +90,23 @@ const AdminBlogsPage = async () => {
                     </p>
                   </div>
 
-                  <Link
-                    href={`/admin/blogs/${post.id}/edit`}
-                    className="inline-flex w-fit items-center gap-2 rounded-full border border-[#d8c6df]/80 bg-[#fffaf5] px-5 py-2.5 text-sm font-semibold text-[#3b243f] transition-all duration-300 hover:border-[#7d9b70] hover:bg-white"
-                  >
-                    Edit
-                    <FiEdit3 />
-                  </Link>
+                  <div className="flex flex-wrap gap-3">
+                    <Link
+                      href={`/admin/blogs/${post.id}/preview`}
+                      className="inline-flex w-fit items-center gap-2 rounded-full border border-[#7d9b70]/70 bg-[#f1f6ee] px-5 py-2.5 text-sm font-semibold text-[#49643e] transition-all duration-300 hover:border-[#7d9b70] hover:bg-white"
+                    >
+                      View
+                      <FiEye />
+                    </Link>
+
+                    <Link
+                      href={`/admin/blogs/${post.id}/edit`}
+                      className="inline-flex w-fit items-center gap-2 rounded-full border border-[#d8c6df]/80 bg-[#fffaf5] px-5 py-2.5 text-sm font-semibold text-[#3b243f] transition-all duration-300 hover:border-[#7d9b70] hover:bg-white"
+                    >
+                      Edit
+                      <FiEdit3 />
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
