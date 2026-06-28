@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiMenu, FiX, FiMail, FiArrowUpRight } from "react-icons/fi";
 import ContactModal from "./ContactModal";
+import LoadingLink from "@/components/LoadingLink";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -25,10 +26,8 @@ const Navbar = ({ simple = false }: NavbarProps) => {
 
   return (
     <>
-      {/* Fixed navbar only */}
-      <header className="fixed left-0 top-0 z-50 w-full border-b border-[#d8c6df]/70 bg-[#fffaf5]/95 shadow-[0_8px_30px_rgba(59,36,63,0.08)] ">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6 ">
-          {/* Logo */}
+      <header className="fixed left-0 top-0 z-50 w-full border-b border-[#d8c6df]/70 bg-[#fffaf5]/95 shadow-[0_8px_30px_rgba(59,36,63,0.08)]">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-6">
           <Link href="/" className="flex items-center gap-3">
             <div className="relative h-12 w-12 overflow-hidden rounded-full border border-[#d8c6df] bg-white shadow-sm md:h-11 md:w-11">
               <Image
@@ -51,31 +50,41 @@ const Navbar = ({ simple = false }: NavbarProps) => {
             </div>
           </Link>
 
-          {/* Desktop Links */}
           {!simple && (
             <div className="hidden items-center gap-8 lg:flex">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="relative text-xs font-semibold uppercase tracking-[0.18em] text-[#4b3d4f] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-[#7d9b70] after:transition-all after:duration-300 hover:text-[#3b243f] hover:after:w-full"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) =>
+                link.href === "/blog" ? (
+                  <LoadingLink
+                    key={link.label}
+                    href={link.href}
+                    loadingText="Opening blog..."
+                    className="relative text-xs font-semibold uppercase tracking-[0.18em] text-[#4b3d4f] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-0 after:bg-[#7d9b70] after:transition-all after:duration-300 hover:text-[#3b243f] hover:after:w-full"
+                  >
+                    {link.label}
+                  </LoadingLink>
+                ) : (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="relative text-xs font-semibold uppercase tracking-[0.18em] text-[#4b3d4f] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] xafter:w-0 after:bg-[#7d9b70] after:transition-all after:duration-300 hover:text-[#3b243f] hover:after:w-full"
+                  >
+                    {link.label}
+                  </Link>
+                ),
+              )}
             </div>
           )}
 
-          {/* Right Side */}
           <div className="hidden items-center gap-3 lg:flex">
             {simple ? (
-              <Link
+              <LoadingLink
                 href="/"
+                loadingText="Going home..."
                 className="group flex items-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#906198] px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_12px_30px_rgba(59,36,63,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
               >
                 Home
                 <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
+              </LoadingLink>
             ) : (
               <>
                 <a
@@ -87,14 +96,13 @@ const Navbar = ({ simple = false }: NavbarProps) => {
                 </a>
 
                 <ContactModal
-  label="Contact"
-  className="group inline-flex items-center gap-2 rounded-full border border-[#7d9b70]/80 bg-[#906198] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_26px_rgba(59,36,63,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70] hover:bg-[#8f6ca1]"
-/>
+                  label="Contact"
+                  className="group inline-flex items-center gap-2 rounded-full border border-[#7d9b70]/80 bg-[#906198] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_10px_26px_rgba(59,36,63,0.16)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70] hover:bg-[#8f6ca1]"
+                />
               </>
             )}
           </div>
 
-          {/* Mobile / tablet menu button */}
           <button
             onClick={() => setOpen(true)}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-[#d8c6df] bg-white text-[#3b243f] shadow-md lg:hidden"
@@ -105,10 +113,8 @@ const Navbar = ({ simple = false }: NavbarProps) => {
         </nav>
       </header>
 
-      {/* Spacer so fixed navbar does not cover page content */}
       <div className="h-[76px] bg-[#fffaf5]" aria-hidden="true" />
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -162,28 +168,42 @@ const Navbar = ({ simple = false }: NavbarProps) => {
               </div>
 
               {simple ? (
-                <Link
+                <LoadingLink
                   href="/"
+                  loadingText="Going home..."
                   onClick={() => setOpen(false)}
                   className="mt-8 flex w-full items-center justify-center gap-2 rounded-full border-2 border-[#7d9b70] bg-[#3b243f] px-6 py-4 font-medium text-white shadow-md"
                 >
                   Home
                   <FiArrowUpRight />
-                </Link>
+                </LoadingLink>
               ) : (
                 <>
                   <div className="mt-8 flex flex-col gap-3">
-                    {navLinks.map((link) => (
-                      <Link
-                        key={link.label}
-                        href={link.href}
-                        onClick={() => setOpen(false)}
-                        className="flex items-center justify-between rounded-2xl border border-[#d8c6df] bg-white/75 px-5 py-4 text-lg text-[#3b243f] shadow-sm transition-all hover:bg-[#f4edf7]"
-                      >
-                        {link.label}
-                        <FiArrowUpRight className="text-[#8f6ca1]" />
-                      </Link>
-                    ))}
+                    {navLinks.map((link) =>
+                      link.href === "/blog" ? (
+                        <LoadingLink
+                          key={link.label}
+                          href={link.href}
+                          loadingText="Opening blog..."
+                          onClick={() => setOpen(false)}
+                          className="flex items-center justify-between rounded-2xl border border-[#d8c6df] bg-white/75 px-5 py-4 text-lg text-[#3b243f] shadow-sm transition-all hover:bg-[#f4edf7]"
+                        >
+                          {link.label}
+                          <FiArrowUpRight className="text-[#8f6ca1]" />
+                        </LoadingLink>
+                      ) : (
+                        <Link
+                          key={link.label}
+                          href={link.href}
+                          onClick={() => setOpen(false)}
+                          className="flex items-center justify-between rounded-2xl border border-[#d8c6df] bg-white/75 px-5 py-4 text-lg text-[#3b243f] shadow-sm transition-all hover:bg-[#f4edf7]"
+                        >
+                          {link.label}
+                          <FiArrowUpRight className="text-[#8f6ca1]" />
+                        </Link>
+                      ),
+                    )}
                   </div>
 
                   <div className="mt-6">

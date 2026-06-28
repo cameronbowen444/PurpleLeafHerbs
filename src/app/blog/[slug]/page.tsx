@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FiArrowLeft, FiArrowUpRight } from "react-icons/fi";
 import Navbar from "@/components/Navbar";
+import LoadingLink from "@/components/LoadingLink";
 import { prisma } from "@/lib/prisma";
+import BlogPostImage from "./BlogPostImage";
 
 type BlogPostPageProps = {
   params: Promise<{
@@ -85,13 +85,14 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
         <div className="absolute bottom-[-20%] right-[-16%] hidden h-[400px] w-[400px] rounded-full bg-[#d8ead0]/30 blur-3xl md:block" />
 
         <div className="relative z-10 mx-auto max-w-5xl">
-          <Link
+          <LoadingLink
             href="/blog"
+            loadingText="Back to blog..."
             className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-[#6f5b75] underline decoration-[#7d9b70] decoration-4 underline-offset-8 transition-colors duration-300 hover:text-[#3b243f]"
           >
             <FiArrowLeft />
             Back to Blog
-          </Link>
+          </LoadingLink>
 
           <header className="border-b-4 border-[#8f6ca1] pb-7 text-center">
             <div className="mb-4 inline-block">
@@ -119,18 +120,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
             </p>
           </header>
 
-          <div className="relative mx-auto mt-8 h-[240px] max-w-4xl overflow-hidden rounded-[1.75rem] border border-[#7d9b70]/70 shadow-[0_12px_35px_rgba(76,51,88,0.07)] md:h-[340px]">
-            <Image
-              src={post.image}
-              alt={post.title}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 850px"
-              className="object-cover"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-[#2b1731]/20 via-transparent to-transparent" />
-          </div>
+          <BlogPostImage src={post.image} alt={post.title} />
 
           <div className="mx-auto mt-8 max-w-3xl">
             <div className="rounded-[1.75rem] border border-[#d8c6df]/70 bg-[#f8f0e8] p-6 shadow-[0_10px_28px_rgba(76,51,88,0.05)] md:p-7">
@@ -141,14 +131,20 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
               </div>
 
               <div className="space-y-5">
-                {paragraphs.map((paragraph, index) => (
-                  <p
-                    key={`${paragraph}-${index}`}
-                    className="text-base leading-8 text-[#5f4f66]"
-                  >
-                    {paragraph}
+                {paragraphs.length > 0 ? (
+                  paragraphs.map((paragraph, index) => (
+                    <p
+                      key={`${paragraph}-${index}`}
+                      className="text-base leading-8 text-[#5f4f66]"
+                    >
+                      {paragraph}
+                    </p>
+                  ))
+                ) : (
+                  <p className="text-base leading-8 text-[#5f4f66]">
+                    No content has been added yet.
                   </p>
-                ))}
+                )}
               </div>
             </div>
           </div>
@@ -166,20 +162,23 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
                   </h2>
                 </div>
 
-                <Link
+                <LoadingLink
                   href="/blog"
+                  loadingText="Opening blog..."
                   className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#6f5b75] underline decoration-[#7d9b70] decoration-4 underline-offset-8 transition-colors duration-300 hover:text-[#3b243f]"
                 >
                   View All
                   <FiArrowUpRight />
-                </Link>
+                </LoadingLink>
               </div>
 
               <div className="grid gap-5 md:grid-cols-2">
                 {relatedPosts.map((relatedPost) => (
-                  <Link
+                  <LoadingLink
                     key={relatedPost.id}
                     href={`/blog/${relatedPost.slug}`}
+                    loadingText="Opening post..."
+                    overlay
                     className="group rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/75 p-5 shadow-[0_10px_28px_rgba(76,51,88,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70]"
                   >
                     <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#8f6ca1]">
@@ -193,7 +192,7 @@ const BlogPostPage = async ({ params }: BlogPostPageProps) => {
                     <p className="mt-3 text-sm leading-6 text-[#6f5b75]">
                       {relatedPost.excerpt}
                     </p>
-                  </Link>
+                  </LoadingLink>
                 ))}
               </div>
             </section>

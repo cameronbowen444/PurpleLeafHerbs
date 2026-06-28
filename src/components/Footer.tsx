@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FiArrowUpRight, FiMail } from "react-icons/fi";
+import LoadingLink from "@/components/LoadingLink";
 
 const footerLinks = [
   { label: "Home", href: "/#home" },
@@ -14,19 +15,14 @@ const footerLinks = [
 const Footer = () => {
   return (
     <footer className="relative overflow-hidden bg-[#906198] px-4 py-10 text-white">
-      {/* Desktop-only glow effects */}
       <div className="absolute left-[-10%] top-[-20%] hidden h-72 w-72 rounded-full bg-[#f1dff4]/18 blur-3xl md:block" />
       <div className="absolute bottom-[-25%] right-[-10%] hidden h-80 w-80 rounded-full bg-[#d8ead0]/20 blur-3xl md:block" />
 
-      
-
       <div className="relative z-10 mx-auto max-w-7xl">
         <div className="relative grid gap-8 overflow-hidden rounded-[2rem] border border-[#ead4ef]/35 bg-white/[0.08] p-6 shadow-[0_14px_45px_rgba(43,23,49,0.18)] md:p-8 lg:grid-cols-[1.1fr_0.9fr]">
-          {/* Top accent lines */}
           <div className="absolute left-0 top-0 h-1.5 w-full bg-[#d8ead0]" />
           <div className="absolute left-0 top-1.5 h-1.5 w-full bg-[#caa6d1]" />
 
-          {/* Brand */}
           <div className="relative z-10">
             <Link href="/#home" className="inline-flex items-center gap-3">
               <div className="relative h-12 w-12 overflow-hidden rounded-full border border-[#d8ead0] bg-white shadow-md">
@@ -69,7 +65,6 @@ const Footer = () => {
             </a>
           </div>
 
-          {/* Links */}
           <div className="relative z-10 grid gap-6 sm:grid-cols-2">
             <div>
               <p className="mb-3 text-[10px] uppercase tracking-[0.28em] text-[#d8ead0]">
@@ -77,16 +72,28 @@ const Footer = () => {
               </p>
 
               <div className="grid gap-2">
-                {footerLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="group flex items-center justify-between rounded-xl border border-white/12 bg-white/[0.06] px-3.5 py-2.5 text-sm text-white/76 transition-all duration-300 hover:border-[#d8ead0]/70 hover:bg-white/[0.12] hover:text-white"
-                  >
-                    {link.label}
-                    <FiArrowUpRight className="opacity-40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#d8ead0] group-hover:opacity-100" />
-                  </Link>
-                ))}
+                {footerLinks.map((link) =>
+                  link.href === "/blog" ? (
+                    <LoadingLink
+                      key={link.label}
+                      href={link.href}
+                      loadingText="Opening blog..."
+                      className="group flex items-center justify-between rounded-xl border border-white/12 bg-white/[0.06] px-3.5 py-2.5 text-sm text-white/76 transition-all duration-300 hover:border-[#d8ead0]/70 hover:bg-white/[0.12] hover:text-white"
+                    >
+                      {link.label}
+                      <FiArrowUpRight className="opacity-40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#d8ead0] group-hover:opacity-100" />
+                    </LoadingLink>
+                  ) : (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className="group flex items-center justify-between rounded-xl border border-white/12 bg-white/[0.06] px-3.5 py-2.5 text-sm text-white/76 transition-all duration-300 hover:border-[#d8ead0]/70 hover:bg-white/[0.12] hover:text-white"
+                    >
+                      {link.label}
+                      <FiArrowUpRight className="opacity-40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#d8ead0] group-hover:opacity-100" />
+                    </Link>
+                  )
+                )}
               </div>
             </div>
 
@@ -106,13 +113,14 @@ const Footer = () => {
                 </p>
 
                 <div className="mt-5 flex flex-col gap-2.5">
-                  <Link
+                  <LoadingLink
                     href="/blog"
+                    loadingText="Opening blog..."
                     className="inline-flex items-center gap-2 text-sm font-semibold text-[#f4e9f7] transition-all duration-300 hover:gap-3 hover:text-[#d8ead0]"
                   >
                     Visit Blog
                     <FiArrowUpRight />
-                  </Link>
+                  </LoadingLink>
 
                   <a
                     href="mailto:brooke@purpleleafherbs.com"
@@ -127,7 +135,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom */}
         <div className="mt-6 flex flex-col items-center justify-between gap-3 text-center text-xs text-white/48 md:flex-row">
           <p>
             © {new Date().getFullYear()} Purple Leaf Herbs. All rights reserved.
