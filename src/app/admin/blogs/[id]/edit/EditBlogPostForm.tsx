@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { FiX } from "react-icons/fi";
 import BlogImagePicker, { assetImages } from "@/app/admin/BlogImagePicker";
+import SubmitButton from "@/app/admin/SubmitButton";
 
 type BlogPostFormData = {
   id: string;
@@ -86,7 +87,9 @@ const EditBlogPostForm = ({ post, updateAction }: EditBlogPostFormProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
-    const imageInput = form.elements.namedItem("image") as HTMLInputElement | null;
+    const imageInput = form.elements.namedItem(
+      "image",
+    ) as HTMLInputElement | null;
 
     if (imageInput && !isValidImageValue(imageInput.value)) {
       imageInput.value = getRandomDefaultImage();
@@ -272,12 +275,12 @@ const EditBlogPostForm = ({ post, updateAction }: EditBlogPostFormProps) => {
           </label>
         </div>
 
-        <button
-          type="submit"
+        <SubmitButton
+          pendingText="Saving changes..."
           className="mt-6 w-full rounded-full border border-[#7d9b70] bg-[#906198] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
         >
           Save Changes
-        </button>
+        </SubmitButton>
       </form>
 
       {isConfirmOpen && (

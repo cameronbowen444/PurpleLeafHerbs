@@ -50,7 +50,7 @@ export const createBlogPost = async (formData: FormData) => {
 
   const slug = customSlug ? slugify(customSlug) : slugify(title);
 
-  await prisma.blogPost.create({
+  const post = await prisma.blogPost.create({
     data: {
       title,
       slug,
@@ -67,6 +67,7 @@ export const createBlogPost = async (formData: FormData) => {
   revalidatePath("/blog");
   revalidatePath(`/blog/${slug}`);
   revalidatePath("/admin/blogs");
+  revalidatePath(`/admin/blogs/${post.id}/preview`);
 
   redirect("/admin/blogs");
 };
@@ -87,6 +88,19 @@ export const updateBlogPost = async (formData: FormData) => {
 
   if (!id || !title || !excerpt || !category || !date || !readTime || !image) {
     throw new Error("Missing required fields");
+  }
+
+  const existingPost = await prisma.blogPost.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      slug: true,
+    },
+  });
+
+  if (!existingPost) {
+    throw new Error("Blog post not found");
   }
 
   const slug = customSlug ? slugify(customSlug) : slugify(title);
@@ -110,9 +124,39 @@ export const updateBlogPost = async (formData: FormData) => {
 
   revalidatePath("/blog");
   revalidatePath(`/blog/${slug}`);
+  revalidatePath(`/blog/${existingPost.slug}`);
   revalidatePath("/admin/blogs");
+  revalidatePath(`/admin/blogs/${id}/preview`);
+  revalidatePath(`/admin/blogs/${id}/edit`);
 
   redirect("/admin/blogs");
+};
+
+export const publishBlogPost = async (formData: FormData) => {
+  await requireAdmin();
+
+  const id = String(formData.get("id") || "");
+
+  if (!id) {
+    throw new Error("Missing post id");
+  }
+
+  const post = await prisma.blogPost.update({
+    where: {
+      id,
+    },
+    data: {
+      published: true,
+    },
+  });
+
+  revalidatePath("/blog");
+  revalidatePath(`/blog/${post.slug}`);
+  revalidatePath("/admin/blogs");
+  revalidatePath(`/admin/blogs/${id}/preview`);
+  revalidatePath(`/admin/blogs/${id}/edit`);
+
+  redirect(`/admin/blogs/${id}/preview`);
 };
 
 export const deleteBlogPost = async (formData: FormData) => {
@@ -124,13 +168,14 @@ export const deleteBlogPost = async (formData: FormData) => {
     throw new Error("Missing post id");
   }
 
-  await prisma.blogPost.delete({
+  const post = await prisma.blogPost.delete({
     where: {
       id,
     },
   });
 
   revalidatePath("/blog");
+  revalidatePath(`/blog/${post.slug}`);
   revalidatePath("/admin/blogs");
 
   redirect("/admin/blogs");

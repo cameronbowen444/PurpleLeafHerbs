@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import BlogImagePicker, { assetImages } from "../../BlogImagePicker";
+import SubmitButton from "@/app/admin/SubmitButton";
 
 type CreateBlogPostFormProps = {
   createAction: (formData: FormData) => void | Promise<void>;
@@ -64,7 +65,9 @@ const CreateBlogPostForm = ({ createAction }: CreateBlogPostFormProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
-    const imageInput = form.elements.namedItem("image") as HTMLInputElement | null;
+    const imageInput = form.elements.namedItem(
+      "image",
+    ) as HTMLInputElement | null;
 
     if (imageInput && !isValidImageValue(imageInput.value)) {
       imageInput.value = getRandomDefaultImage();
@@ -233,12 +236,12 @@ const CreateBlogPostForm = ({ createAction }: CreateBlogPostFormProps) => {
         </label>
       </div>
 
-      <button
-        type="submit"
+      <SubmitButton
+        pendingText="Creating post..."
         className="mt-6 w-full rounded-full border border-[#7d9b70] bg-[#906198] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
       >
         Create Blog Post
-      </button>
+      </SubmitButton>
     </form>
   );
 };

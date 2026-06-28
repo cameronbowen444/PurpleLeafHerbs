@@ -3,6 +3,7 @@ import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import { FiArrowLeft, FiEdit3, FiEye, FiPlus } from "react-icons/fi";
 import { prisma } from "@/lib/prisma";
+import AdminLoadingLink from "@/app/admin/AdminLoadingLink";
 
 const AdminBlogsPage = async () => {
   const { userId } = await auth();
@@ -22,13 +23,14 @@ const AdminBlogsPage = async () => {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex flex-col gap-5 border-b border-[#d8c6df]/70 pb-6 md:flex-row md:items-center md:justify-between">
           <div>
-            <Link
+            <AdminLoadingLink
               href="/admin"
+              loadingText="Going back..."
               className="mb-4 inline-flex items-center gap-2 text-sm font-semibold text-[#6f5b75] underline decoration-[#7d9b70] decoration-4 underline-offset-8 transition-colors duration-300 hover:text-[#3b243f]"
             >
               <FiArrowLeft />
               Back to Dashboard
-            </Link>
+            </AdminLoadingLink>
 
             <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[#8f6ca1]">
               Admin
@@ -40,13 +42,14 @@ const AdminBlogsPage = async () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Link
+            <AdminLoadingLink
               href="/admin/blogs/new"
+              loadingText="Opening..."
               className="inline-flex items-center gap-2 rounded-full border border-[#7d9b70] bg-[#906198] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8f6ca1]"
             >
               <FiPlus />
               New Post
-            </Link>
+            </AdminLoadingLink>
 
             <UserButton />
           </div>
@@ -91,21 +94,23 @@ const AdminBlogsPage = async () => {
                   </div>
 
                   <div className="flex flex-wrap gap-3">
-                    <Link
+                    <AdminLoadingLink
                       href={`/admin/blogs/${post.id}/preview`}
+                      loadingText="Opening..."
                       className="inline-flex w-fit items-center gap-2 rounded-full border border-[#7d9b70]/70 bg-[#f1f6ee] px-5 py-2.5 text-sm font-semibold text-[#49643e] transition-all duration-300 hover:border-[#7d9b70] hover:bg-white"
                     >
                       View
                       <FiEye />
-                    </Link>
+                    </AdminLoadingLink>
 
-                    <Link
+                    <AdminLoadingLink
                       href={`/admin/blogs/${post.id}/edit`}
+                      loadingText="Opening..."
                       className="inline-flex w-fit items-center gap-2 rounded-full border border-[#d8c6df]/80 bg-[#fffaf5] px-5 py-2.5 text-sm font-semibold text-[#3b243f] transition-all duration-300 hover:border-[#7d9b70] hover:bg-white"
                     >
                       Edit
                       <FiEdit3 />
-                    </Link>
+                    </AdminLoadingLink>
                   </div>
                 </div>
               </div>
@@ -121,13 +126,14 @@ const AdminBlogsPage = async () => {
               Create the first blog post for Purple Leaf Herbs.
             </p>
 
-            <Link
+            <AdminLoadingLink
               href="/admin/blogs/new"
+              loadingText="Opening..."
               className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#7d9b70] bg-[#906198] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
             >
               Create First Post
               <FiPlus />
-            </Link>
+            </AdminLoadingLink>
           </div>
         )}
       </div>

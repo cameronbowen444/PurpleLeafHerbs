@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FiTrash2, FiX } from "react-icons/fi";
+import SubmitButton from "./SubmitButton";
 
 type DeleteBlogPostButtonProps = {
   postId: string;
@@ -65,12 +66,12 @@ const DeleteBlogPostButton = ({
               <form action={deleteAction}>
                 <input type="hidden" name="id" value={postId} />
 
-                <button
-                  type="submit"
+                <SubmitButton
+                  pendingText="Deleting..."
                   className="w-full rounded-full border border-red-300 bg-red-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-red-700"
                 >
                   Yes, Delete
-                </button>
+                </SubmitButton>
               </form>
             </div>
           </div>

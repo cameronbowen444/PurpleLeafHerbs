@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+import AdminDashboardLink from "./AdminDashboardLink";
 
 const AdminPage = async () => {
   await auth.protect();
@@ -23,18 +23,11 @@ const AdminPage = async () => {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2">
-          <Link
+          <AdminDashboardLink
             href="/admin/blogs"
-            className="rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/80 p-6 shadow-[0_10px_28px_rgba(76,51,88,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70]"
-          >
-            <p className="font-serif text-3xl text-[#3b243f]">
-              Manage Blog Posts
-            </p>
-
-            <p className="mt-3 text-sm leading-6 text-[#6f5b75]">
-              Create, update, publish, and delete blog posts.
-            </p>
-          </Link>
+            title="Manage Blog Posts"
+            description="Create, update, publish, and delete blog posts."
+          />
 
           <div className="rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/60 p-6 opacity-70">
             <p className="font-serif text-3xl text-[#3b243f]">
@@ -42,7 +35,7 @@ const AdminPage = async () => {
             </p>
 
             <p className="mt-3 text-sm leading-6 text-[#6f5b75]">
-              Mailchimp connection coming later.
+              Brevo connection coming later.
             </p>
           </div>
         </div>

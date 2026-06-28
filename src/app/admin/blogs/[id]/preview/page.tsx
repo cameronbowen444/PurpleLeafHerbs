@@ -1,10 +1,12 @@
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { FiArrowLeft, FiEdit3, FiEye } from "react-icons/fi";
 import Navbar from "@/components/Navbar";
 import { prisma } from "@/lib/prisma";
+import AdminLoadingLink from "@/app/admin/AdminLoadingLink";
+import PublishBlogPostButton from "@/app/admin/PublishBlogPostButton";
+import { publishBlogPost } from "../../actions";
 
 type AdminBlogPreviewPageProps = {
   params: Promise<{
@@ -56,30 +58,39 @@ const AdminBlogPreviewPage = async ({ params }: AdminBlogPreviewPageProps) => {
 
       <div className="border-b border-[#d8c6df]/70 bg-[#3b243f] px-4 py-3 text-white">
         <div className="mx-auto flex max-w-5xl flex-col gap-3 text-sm md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-2 font-semibold">
+          <div className="flex flex-wrap items-center gap-2 font-semibold">
             <FiEye />
             Admin Preview
+
             <span className="rounded-full bg-white/15 px-3 py-1 text-xs">
               {post.published ? "Published" : "Draft"}
             </span>
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <Link
+            <PublishBlogPostButton
+              postId={post.id}
+              isPublished={post.published}
+              publishAction={publishBlogPost}
+            />
+
+            <AdminLoadingLink
               href="/admin/blogs"
+              loadingText="Going back..."
               className="inline-flex items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-xs font-semibold transition hover:bg-white/10"
             >
               <FiArrowLeft />
               Back to Posts
-            </Link>
+            </AdminLoadingLink>
 
-            <Link
+            <AdminLoadingLink
               href={`/admin/blogs/${post.id}/edit`}
+              loadingText="Opening..."
               className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#3b243f] transition hover:bg-[#fffaf5]"
             >
               Edit Post
               <FiEdit3 />
-            </Link>
+            </AdminLoadingLink>
           </div>
         </div>
       </div>
@@ -89,13 +100,14 @@ const AdminBlogPreviewPage = async ({ params }: AdminBlogPreviewPageProps) => {
         <div className="absolute bottom-[-20%] right-[-16%] hidden h-[400px] w-[400px] rounded-full bg-[#d8ead0]/30 blur-3xl md:block" />
 
         <div className="relative z-10 mx-auto max-w-5xl">
-          <Link
+          <AdminLoadingLink
             href="/admin/blogs"
+            loadingText="Going back..."
             className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-[#6f5b75] underline decoration-[#7d9b70] decoration-4 underline-offset-8 transition-colors duration-300 hover:text-[#3b243f]"
           >
             <FiArrowLeft />
             Back to Admin Blog Posts
-          </Link>
+          </AdminLoadingLink>
 
           <header className="border-b-4 border-[#8f6ca1] pb-7 text-center">
             <div className="mb-4 inline-block">
@@ -176,19 +188,21 @@ const AdminBlogPreviewPage = async ({ params }: AdminBlogPreviewPageProps) => {
                   </h2>
                 </div>
 
-                <Link
+                <AdminLoadingLink
                   href="/blog"
+                  loadingText="Opening..."
                   className="inline-flex w-fit items-center gap-2 text-sm font-semibold text-[#6f5b75] underline decoration-[#7d9b70] decoration-4 underline-offset-8 transition-colors duration-300 hover:text-[#3b243f]"
                 >
                   View Public Blog
-                </Link>
+                </AdminLoadingLink>
               </div>
 
               <div className="grid gap-5 md:grid-cols-2">
                 {relatedPosts.map((relatedPost) => (
-                  <Link
+                  <AdminLoadingLink
                     key={relatedPost.id}
                     href={`/blog/${relatedPost.slug}`}
+                    loadingText="Opening..."
                     className="group rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/75 p-5 shadow-[0_10px_28px_rgba(76,51,88,0.05)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#7d9b70]"
                   >
                     <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.24em] text-[#8f6ca1]">
@@ -202,7 +216,7 @@ const AdminBlogPreviewPage = async ({ params }: AdminBlogPreviewPageProps) => {
                     <p className="mt-3 text-sm leading-6 text-[#6f5b75]">
                       {relatedPost.excerpt}
                     </p>
-                  </Link>
+                  </AdminLoadingLink>
                 ))}
               </div>
             </section>
