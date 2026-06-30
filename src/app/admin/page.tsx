@@ -29,15 +29,11 @@ const AdminPage = async () => {
             description="Create, update, publish, and delete blog posts."
           />
 
-          <div className="rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/60 p-6 opacity-70">
-            <p className="font-serif text-3xl text-[#3b243f]">
-              Mailing List
-            </p>
-
-            <p className="mt-3 text-sm leading-6 text-[#6f5b75]">
-              Brevo connection coming later.
-            </p>
-          </div>
+          <AdminDashboardLink
+            href="/admin/subscribers"
+            title="Mailing List"
+            description="View subscribers collected from the website and their selected email preferences."
+          />
         </div>
       </div>
     </main>

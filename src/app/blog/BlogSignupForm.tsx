@@ -3,40 +3,86 @@
 import { useState } from "react";
 
 const BlogSignupForm = () => {
+  const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setMessage("");
+    setError("");
+
+    if (!email.trim()) {
+      setError("Please enter your email address.");
+      return;
+    }
 
     setIsLoading(true);
 
-    // Temporary loading feedback until Brevo/email signup is connected.
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          subscriptionType: "blog",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Could not sign up. Please try again.");
+        return;
+      }
+
+      setEmail("");
+      setMessage("Thank you for joining!");
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
       setIsLoading(false);
-    }, 900);
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="mx-auto mb-5 flex max-w-xl flex-col items-center gap-2 rounded-full border border-[#d8c6df]/70 bg-white/75 p-2 shadow-[0_8px_22px_rgba(76,51,88,0.04)] sm:flex-row"
-    >
-      <p className="px-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#8f6ca1]">
-        Sign up if you haven’t already
+  <div className="mx-auto mb-6 max-w-3xl px-2 text-center">
+    <div className="mb-3">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8f6ca1]">
+        Blog Updates
       </p>
 
-      <div className="flex w-full flex-col gap-2 sm:flex-row">
+      <h3 className="mt-1 font-serif text-2xl text-[#3b243f]">
+        Sign up for blog post updates
+      </h3>
+
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#6f5b75]">
+        Get notified when new Purple Leaf Herbs blog notes are published.
+      </p>
+    </div>
+
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/80 p-4 shadow-[0_8px_22px_rgba(76,51,88,0.04)] sm:rounded-full sm:p-2"
+    >
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <input
           type="email"
           required
           placeholder="Email address"
-          className="min-h-10 flex-1 rounded-full bg-transparent px-4 text-sm text-[#3b243f] outline-none placeholder:text-[#9b8aa1]"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="min-h-11 w-full rounded-full border border-[#eaddec] bg-[#fffaf5] px-4 text-sm text-[#3b243f] outline-none placeholder:text-[#9b8aa1] transition focus:border-[#7d9b70] sm:min-h-10 sm:flex-1 sm:border-0 sm:bg-transparent"
         />
 
         <button
           type="submit"
           disabled={isLoading}
-          className={`inline-flex min-h-10 items-center justify-center rounded-full border border-[#7d9b70] bg-[#906198] px-5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1] ${
+          className={`inline-flex min-h-11 w-full shrink-0 items-center justify-center rounded-full border border-[#7d9b70] bg-[#906198] px-5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1] sm:min-h-10 sm:w-auto ${
             isLoading ? "cursor-not-allowed opacity-70" : ""
           }`}
         >
@@ -51,7 +97,20 @@ const BlogSignupForm = () => {
         </button>
       </div>
     </form>
-  );
+
+    {message && (
+      <p className="mt-2 text-center text-xs font-semibold text-[#4f7a43]">
+        {message}
+      </p>
+    )}
+
+    {error && (
+      <p className="mt-2 text-center text-xs font-semibold text-red-600">
+        {error}
+      </p>
+    )}
+  </div>
+);
 };
 
 export default BlogSignupForm;

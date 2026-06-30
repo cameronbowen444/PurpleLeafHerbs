@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { FiArrowUpRight, FiMail, FiBookOpen, FiTag } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiArrowUpRight, FiMail, FiBookOpen, FiTag, FiCheck } from "react-icons/fi";
 
 const subscriptionOptions = [
   {
@@ -27,12 +27,77 @@ const subscriptionOptions = [
 
 const Subscribe = () => {
   const [selected, setSelected] = useState("both");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setMessage("");
+
+    if (!email.trim()) {
+      setMessage("Please enter your email address.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          subscriptionType: selected,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMessage(data.message || "Something went wrong. Please try again.");
+        return;
+      }
+
+      setEmail("");
+      setMessage("");
+      setShowPopup(true);
+
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 3000);
+    } catch {
+      setMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section
       id="subscribe"
       className="relative overflow-hidden bg-[#fffaf5] px-4 py-12 text-[#302133] md:py-14"
     >
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            initial={{ y: -20, opacity: 0, scale: 0.96 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: -20, opacity: 0, scale: 0.96 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="fixed left-1/2 top-6 z-[999] flex -translate-x-1/2 items-center gap-3 rounded-full border border-[#7d9b70]/50 bg-white px-5 py-3 text-sm font-semibold text-[#3b243f] shadow-[0_14px_35px_rgba(59,36,63,0.16)]"
+          >
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#d8ead0] text-[#7d9b70]">
+              <FiCheck />
+            </span>
+            Thank you for joining!
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <motion.div
@@ -42,10 +107,7 @@ const Subscribe = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="relative overflow-hidden rounded-[2rem] border border-[#7d9b70]/60 bg-[#f8f0e8] px-5 py-8 text-center shadow-[0_12px_35px_rgba(76,51,88,0.07)] md:rounded-[2.5rem] md:px-9 md:py-10"
         >
-
-          
           <div className="relative z-10 mx-auto max-w-4xl">
-            
             <div className="mb-4 inline-block">
               <div className="relative inline-block">
                 <span className="absolute -left-3 top-1/2 h-2.5 w-[112%] -translate-y-1/2 rounded-full bg-[#d8ead0]/90" />
@@ -65,7 +127,6 @@ const Subscribe = () => {
               occasional promotions from Purple Leaf Herbs.
             </p>
 
-            {/* Options */}
             <div className="mt-6 grid gap-3 md:grid-cols-3">
               {subscriptionOptions.map((option) => {
                 const active = selected === option.id;
@@ -105,25 +166,34 @@ const Subscribe = () => {
               })}
             </div>
 
-            {/* Form */}
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
               className="mx-auto mt-6 grid max-w-2xl gap-2 rounded-[1.5rem] border border-[#d8c6df]/70 bg-white/80 p-2 shadow-[0_10px_28px_rgba(76,51,88,0.05)] sm:grid-cols-[1fr_auto]"
             >
               <input
                 type="email"
                 placeholder="Email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="min-h-11 rounded-full bg-transparent px-4 text-sm text-[#3b243f] outline-none placeholder:text-[#9b8aa1]"
+                required
               />
 
               <button
                 type="submit"
-                className="group inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#7d9b70] bg-[#906198] px-5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1]"
+                disabled={loading}
+                className="group inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#7d9b70] bg-[#906198] px-5 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#8f6ca1] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Join List
+                {loading ? "Joining..." : "Join List"}
                 <FiArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </button>
             </form>
+
+            {message && (
+              <p className="mt-3 text-xs font-medium text-red-600">
+                {message}
+              </p>
+            )}
 
             <p className="mt-3 text-xs text-[#8b6a99]">
               You selected:{" "}
