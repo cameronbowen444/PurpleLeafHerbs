@@ -16,7 +16,7 @@ export default function Home() {
       <About />
       <Services />
       <Mission />
-      <Quotes />
+      {/* <Quotes /> */}
       <Subscribe />
       <Footer />
       <ScrollDownButton />
